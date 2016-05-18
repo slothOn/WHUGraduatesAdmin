@@ -193,7 +193,7 @@ select
 	
 	<!-- 遍历大学活动 -->
 	<s:iterator value="#request.records_list" var="record">
-		<tr class="list">
+		<tr class="list record">
 			<td><s:property value="#record.activity"/></td>
 			<td><s:property value="#record.honor"/></td>
 			<td><s:property value="#record.startyear"/></td>

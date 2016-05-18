@@ -16,7 +16,7 @@ import service.impl.StudentschoolDAOImpl;
 public class StudentAction extends SuperAction{
 	private InputStream inputStream;
 	
-	public InputStream getResult(){
+	public InputStream getInputStream(){
 		return inputStream;
 	}
 	public String query(){
@@ -145,7 +145,7 @@ public class StudentAction extends SuperAction{
 			inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
 		}
 		
-		return SUCCESS;
+		return "success";
 	}
 	
 	public String schoolupdate(){

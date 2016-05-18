@@ -62,7 +62,20 @@ public class StudentschoolDAOImpl implements StudentschoolDAO{
 	@Override
 	public boolean addRecord(Student_school s) {
 		// TODO Auto-generated method stub
-		return false;
+		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.save(s);
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.commit();
+			return false;
+		}finally {
+			if(tx != null) tx = null;
+		}
 	}
 
 	@Override

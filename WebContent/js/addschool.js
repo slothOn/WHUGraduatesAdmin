@@ -10,7 +10,7 @@ function ajaxAddSchool(){
             }
             var $html = "<tr class='list record'><td>" +
                 $postdata[1]['value'] + "</td><td>" + $postdata[2]['value'] + "</td><td>" + $postdata[3]['value'] + "</td><td>"
-                 + $postdata[4]['value'] + "</td><td>详情修改</td></tr>";
+                 + $postdata[4]['value'] + "</td><td>修改&nbsp;删除</td></tr>";
             $(".record:last").after($html);
             alert("插入成功");
         }

@@ -18,6 +18,7 @@ var treeMenu = [
 	{ level:1, name:"学生管理"},
 	{ level:2, name:"学生列表", ico:"images/icon_default.gif",link:"students/Student_query.action"},
 	{ level:2, name:"大学生涯发展", ico:"images/icon_default.gif",link:"students/Student_schoolquery.action"},
+	{ level:2, name:"大学生涯发展", ico:"images/icon_default.gif",link:"students/Student_jobquery.action"},
 	{ level:1, name:"学生大学生活记录"},
 	{ level:2, name:"大学生涯发展", ico:"images/icon_default.gif",link:"students/Student_schoolquery.action"},
 	{ level:1, name:"信息管理"},
