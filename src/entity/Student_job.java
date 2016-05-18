@@ -6,15 +6,15 @@ import java.util.Date;
 public class Student_job {
 	private Integer sjid;
 	private String sid;
-	private Date time;
-	private Integer type;
+	private String time;
+	private String type;
 	private String cname;
 	private String job;
 	private String comment;
 	
 	public Student_job(){}
 	
-	public Student_job(Integer sjid, String sid, Date time, Integer type, String cname, String job, String comment) {
+	public Student_job(Integer sjid, String sid, String time, String type, String cname, String job, String comment) {
 		super();
 		this.sjid = sjid;
 		this.sid = sid;
@@ -36,16 +36,16 @@ public class Student_job {
 	public void setSid(String sid) {
 		this.sid = sid;
 	}
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
-	public Integer getType() {
+	public String getType() {
 		return type;
 	}
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 	public String getCname() {
@@ -67,4 +67,9 @@ public class Student_job {
 		this.comment = comment;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return sjid + "," + sid + "," + time + "," + type + "," + cname + "," + job + "," + comment;
+	}
 }

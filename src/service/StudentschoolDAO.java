@@ -9,5 +9,5 @@ public interface StudentschoolDAO {
 	public List<Student_school> queryRecordBySid(String sid);
 	public boolean addRecord(Student_school s);
 	public boolean updateRecord(Student_school s);
-	public boolean deleteRecord(String sid);
+	public boolean deleteRecord(String ssid);
 }

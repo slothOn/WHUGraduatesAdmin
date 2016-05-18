@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<iframe src="../tree.jsp"></iframe>
         </div>
 	<div id="main">
-		<iframe name="MainFrame" src="Users_login_main.jsp" scrolling="auto"></iframe>
+		<iframe name="MainFrame" src="Users_login_main.jsp" scrolling="yes"></iframe>
 	</div>
 	<div id="footer">Copyright © 2016 All Rights Reserved Powered By ZXC</div>
 </div>

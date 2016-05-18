@@ -7,10 +7,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import entity.Student_info;
+import entity.Student_job;
 import entity.Student_school;
 import service.StudentDAO;
+import service.StudentjobDAO;
 import service.StudentschoolDAO;
 import service.impl.StudentDAOImpl;
+import service.impl.StudentjobDAOImpl;
 import service.impl.StudentschoolDAOImpl;
 
 public class StudentAction extends SuperAction{
@@ -76,7 +79,11 @@ public class StudentAction extends SuperAction{
 		StudentschoolDAO stuschdao = new StudentschoolDAOImpl();
 		List<Student_school> stusch = stuschdao.queryRecordBySid(sid);
 		request.setAttribute("records_list", stusch);
-	
+        
+		StudentjobDAO stujobdao = new StudentjobDAOImpl();
+		List<Student_job> stujob = stujobdao.queryRecordBySid(sid);
+		request.setAttribute("jobrecords_list", stujob);
+		
 		return "modify_success";
 	}
 	
@@ -124,7 +131,7 @@ public class StudentAction extends SuperAction{
 	
 	public String schooldelete(){
 		String ssid = request.getParameter("ssid");
-		StudentschoolDAOImpl sdao = new StudentschoolDAOImpl();
+		StudentschoolDAO sdao = new StudentschoolDAOImpl();
 		sdao.deleteRecord(ssid);
 		return "school_delete_success";
 	}
@@ -150,5 +157,37 @@ public class StudentAction extends SuperAction{
 	
 	public String schoolupdate(){
 		return "school_update";
+	}
+	
+	public String jobquery(){
+		StudentjobDAO sdao = new StudentjobDAOImpl();
+		List<Student_job> list = sdao.queryAllRecords();
+		request.setAttribute("records_list", list);
+		return "job_query_success";
+	}
+	
+	public String jobadd() throws Exception{
+		Map<String, String[]> map = request.getParameterMap();
+		String sid = map.get("sid")[0];
+		String time = map.get("time")[0];
+		String type = map.get("type")[0];
+		String cname = map.get("cname")[0];
+		String job = map.get("job")[0];
+		String comment = map.get("comment")[0];
+		Student_job stujob = new Student_job(0, sid, time, type, cname, job, comment);
+		StudentjobDAO sjdao = new StudentjobDAOImpl();
+		if(sjdao.addRecord(stujob)){
+			inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+		}else{
+			inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+		}
+		return SUCCESS;
+	}
+	
+	public String jobdelete(){
+		String sjid = request.getParameter("sjid");
+		StudentjobDAO sjdao = new StudentjobDAOImpl();
+		sjdao.deleteRecord(sjid);
+		return "job_delete_success";
 	}
 }

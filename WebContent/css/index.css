@@ -172,5 +172,5 @@ iframe{
     background:#FFF;
     position:relative;
     border-radius:12px;
-    overflow:hidden;
+    overflow:scroll;
 }

@@ -12,8 +12,8 @@
 		</id>
 		<!-- student_job(sjid,sid, time, state, cname, job,comment) -->
 		<property name="sid" type="java.lang.String"/>
-		<property name="time" type="date"/>
-		<property name="type" type="integer"/>
+		<property name="time" type="java.lang.String"/>
+		<property name="type" type="java.lang.String"/>
 		<property name="cname" type="java.lang.String"/>
 		<property name="job" type="java.lang.String"/>
 		<property name="comment" type="java.lang.String"/>

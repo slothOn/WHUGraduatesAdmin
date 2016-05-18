@@ -20,6 +20,12 @@
 				<param name="inputName">inputStream</param>
 			</result>	
 		</action>
+		<action name="Student_jobadd" class="action.StudentAction" method="jobadd">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>	
+		</action>
 		
 		<action name="*_*" class="action.{1}Action" method="{2}">
 			<result name="query_success">/students/Students_query_success.jsp</result>
@@ -31,6 +37,9 @@
 			<result name="update_success">/students/Students_modify_success.jsp</result>
 			<result name="school_query_success">/students/Studentschool_query_success.jsp</result>
 			<result name="school_delete_success" type="chain">Student_schoolquery</result>
+			
+			<result name="job_query_success">/students/Studentjob_query_success.jsp</result>
+			<result name="job_delete_success" type="chain">Student_jobquery</result>
 		</action>
 	</package>
 </struts>

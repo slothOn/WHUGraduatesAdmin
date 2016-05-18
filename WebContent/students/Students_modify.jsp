@@ -16,7 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     padding: 0;
     vertical-align: baseline;
 	font-family:微软雅黑;
-	overflow:hidden;
 }
 #navi{
 	width:100%;
@@ -177,7 +176,7 @@ select
 
 <h3>大学生活记录</h3>
 <!-- 尝试动态修改 -->
-<table class="default" width="80%" style="padding: 10px">
+<table class="default" width="80%" style="padding: 10px; margin: 10px">
 	<col width="30%">
 	<col width="30%">
 	<col width="10%">
@@ -217,6 +216,53 @@ select
 	        </tr>
     	</form>
 </table>
+
+<h3>学生职业生涯</h3>
+<table class="default" width="80%" style="padding: 10px; margin: 10px">
+	<col width="10%">
+	<col width="20%">
+	<col width="25%">
+	<col width="20%">
+	<col width="10%">
+	<col width="20%">
+	<tr class="title">
+		<td>时间</td>
+		<td>状态</td>
+		<td>单位</td>
+		<td>岗位</td>
+		<td>备注</td>
+		<td>操作</td>
+	</tr>
+	
+	<!-- 遍历职业生涯 -->
+	<s:iterator value="#request.jobrecords_list" var="record">
+		<tr class="list jobrecord">
+			<td><s:property value="#record.time"/></td>
+			<td><s:property value="#record.type"/></td>
+			<td><s:property value="#record.cname"/></td>
+			<td><s:property value="#record.job"/></td>
+			<td><s:property value="#record.comment"/></td>
+			<td>
+			<a href="<%=path%>/students/Student_modify.action?sid=<s:property value="#record.sid"/>">修改</a>
+			<a href="<%=path%>/students/Student_jobdelete.action?ssid=<s:property value="#record.sjid"/>" onclick="javascript:return confirm('真的要删除吗？');">删除</a>
+			</td>
+		</tr>
+	</s:iterator>
+		<form class="addjob">
+	        <tr class="list">
+	            <input type="text" name="sid" value='<s:property value="#request.modify_students.sid"/>' hidden>
+	            <td><input type="text" name="time" class="input_v"></td>
+	            <td><input type="text" name="type" class="input_v"></td>
+	            <td><input type="text" name="cname" class="input_v"></td>
+	            <td><input type="text" name="job" class="input_v"></td>
+	            <td><input type="text" name="comment" class="input_v"></td>
+	            <td>
+	                <a onclick="ajaxAddJob()"/>添加</a>
+	            </td>
+	        </tr>
+    	</form>
+</table>
+
 </div>
 <script type="text/javascript" src="../js/addschool.js"></script>
 </body>

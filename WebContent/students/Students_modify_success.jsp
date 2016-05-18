@@ -15,7 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     padding: 0;
     vertical-align: baseline;
 	font-family:微软雅黑;
-	overflow:hidden;
 }
 #navi{
 	width:100%;

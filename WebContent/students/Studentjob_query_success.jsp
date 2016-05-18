@@ -105,10 +105,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<tr class="title">
 		<td>学号</td>
 		<td>姓名</td>
-		<td>活动</td>
-		<td>荣誉</td>
-		<td>起始</td>
-		<td>结束</td>
+		<td>时间</td>
+		<td>状态</td>
+		<td>单位</td>
+		<td>岗位</td>
+		<td>备注</td>
 		<td>操作</td>
 	</tr>
 	
@@ -117,14 +118,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tr class="list">
 			<td><s:property value="#record.sid"/></td>
 			<td><s:property value="#record.sname"/></td>
-			<td><s:property value="#record.activity"/></td>
-			<td><s:property value="#record.honor"/></td>
-			<td><s:property value="#record.startyear"/></td>
-			<td><s:property value="#record.endyear"/></td>
+			<td><s:property value="#record.time"/></td>
+			<td><s:property value="#record.type"/></td>
+			<td><s:property value="#record.cname"/></td>
+			<td><s:property value="#record.job"/></td>
+			<td><s:property value="#record.comment"/></td>
 			<td>
 			<a href="<%=path%>/students/Student_modify.action?sid=<s:property value="#record.sid"/>">详情</a>
 			<a href="<%=path%>/students/Student_modify.action?sid=<s:property value="#record.sid"/>">修改</a>
-			<a href="<%=path%>/students/Student_schooldelete.action?ssid=<s:property value="#record.ssid"/>" onclick="javascript:return confirm('真的要删除吗？');">删除</a>
+			<a href="<%=path%>/students/Student_jobdelete.action?sjid=<s:property value="#record.sjid"/>" onclick="javascript:return confirm('真的要删除吗？');">删除</a>
 			</td>
 		</tr>
 	</s:iterator>

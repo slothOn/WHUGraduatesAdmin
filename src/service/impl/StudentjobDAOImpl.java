@@ -7,47 +7,22 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import db.MyHibernateSessionFactory;
+import entity.Student_info;
 import entity.Student_job;
-import entity.Student_school;
-import service.StudentschoolDAO;
+import service.StudentjobDAO;
 
-public class StudentschoolDAOImpl implements StudentschoolDAO{
-
-	@Override
-	public List<Student_school> queryAllRecords() {
-		// TODO Auto-generated method stub
-		List<Student_school> list = null;
-		Transaction tx = null;
-		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			String hql = "from Student_school";
-			Query query = session.createQuery(hql);
-			list = query.list();
-			tx.commit();
-			return list;
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			tx.commit();
-			return list;
-		}finally {
-			if(tx != null) tx = null;
-		}
-	}
+public class StudentjobDAOImpl implements StudentjobDAO{
 
 	@Override
-	public List<Student_school> queryRecordBySid(String sid) {
+	public List<Student_job> queryAllRecords() {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
-		List<Student_school> list = null;
 		try {
-			String hql = "from Student_school where sid=?";
+			String hql = "from Student_job";
 			Query query = session.createQuery(hql);
-			query.setParameter(0, sid);
-			list = (List<Student_school>)query.list();
+			List<Student_job> list = query.list();
 			tx.commit();
 			return list;
 		} catch (Exception e) {
@@ -61,39 +36,37 @@ public class StudentschoolDAOImpl implements StudentschoolDAO{
 	}
 
 	@Override
-	public boolean addRecord(Student_school s) {
+	public List<Student_job> queryRecordBySid(String sid) {
 		// TODO Auto-generated method stub
+		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
-		Transaction tx = session.beginTransaction();
+		tx = session.beginTransaction();
+		List<Student_job> list = null;
 		try {
-			session.save(s);
+			String hql = "from Student_job where sid=?";
+			Query query = session.createQuery(hql);
+			query.setParameter(0, sid);
+			list = query.list();
 			tx.commit();
-			return true;
+			return list;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			tx.commit();
-			return false;
-		}finally {
+			return null;
+		}finally{
 			if(tx != null) tx = null;
 		}
 	}
 
 	@Override
-	public boolean updateRecord(Student_school s) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deleteRecord(String ssid) {
+	public boolean addRecord(Student_job s) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
 		try{
-			Student_school stusch = (Student_school) session.get(Student_school.class, Integer.valueOf(ssid));
-			session.delete(stusch);
+			session.save(s);
 			tx.commit();
 			return true;
 		}catch (Exception e) {
@@ -104,7 +77,33 @@ public class StudentschoolDAOImpl implements StudentschoolDAO{
 		}finally{
 			if(tx != null) tx = null;
 		}
-		
+	}
+
+	@Override
+	public boolean updateRecord(Student_job s) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteRecord(String sjid) {
+		// TODO Auto-generated method stub
+		Transaction tx = null;
+		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
+		tx = session.beginTransaction();
+		try{
+			Student_job stujob = (Student_job) session.get(Student_job.class, Integer.valueOf(sjid));
+			session.delete(stujob);
+			tx.commit();
+			return true;
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.commit();
+			return false;
+		}finally{
+			if(tx != null) tx = null;
+		}
 	}
 
 }

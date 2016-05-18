@@ -1,0 +1,7 @@
+/action/
+/db/
+/entity/
+/filter/
+/hibernate.cfg.xml
+/service/
+/struts.xml
