@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	
+	<class name="entity.Student_school" table="student_school">
+		
+		<id name="ssid" type="integer">
+			<generator class="native"/>
+		</id>
+		<!-- student_school(ssid, sid, activity, honor, startyear, endyear) -->
+		<property name="sid" type="java.lang.String"/>
+		<property name="activity" type="java.lang.String"/>
+		<property name="honor" type="java.lang.String"/>
+		<property name="startyear" type="java.lang.String"/>
+		<property name="endyear" type="java.lang.String"/>
+	</class>
+
+</hibernate-mapping>

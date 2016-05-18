@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	
+	<class name="entity.Com_hire" table="com_hire">
+		<!-- com_hire(hid, cid, startdate, enddate, sid) -->
+		<id name="hid" type="integer">
+			<generator class="native"/>
+		</id>
+		<property name="cid" type="integer"/>
+		<property name="startdate" type="java.lang.String"/>
+		<property name="enddate" type="java.lang.String"/>
+		<property name="sid" type="integer"/>
+	</class>
+
+</hibernate-mapping>

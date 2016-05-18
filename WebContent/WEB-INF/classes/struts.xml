@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="user" namespace="/users" extends="struts-default">
+		<action name="*_*" class="action.{1}Action" method="{2}">
+			<result name="login_success">/users/Users_login_success.jsp</result>
+			<result name="login_failure">/users/Users_login.jsp</result>
+			<result name="logout_success">/users/Users_login.jsp</result>
+			<result name="input">/users/Users_login.jsp</result>
+		</action>
+	</package>
+	<package name="student" namespace="/students" extends="struts-default">
+		
+		<action name="schooladd" class="action.StudentAction" method="">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">result</param>
+			</result>	
+		</action>
+		
+		<action name="*_*" class="action.{1}Action" method="{2}">
+			<result name="query_success">/students/Students_query_success.jsp</result>
+			<result name="delete_success" type="chain">Student_query</result>
+			<result name="add_success">/students/Students_add_success.jsp</result>
+			<result name="add_error">/students/Students_add.jsp</result>
+			<result name="modify_success">/students/Students_modify.jsp</result>
+			<result name="update_error">/students/Students_modify.jsp</result>
+			<result name="update_success">/students/Students_modify_success.jsp</result>
+			<result name="school_query_success">/students/Studentschool_query_success.jsp</result>
+			<result name="school_delete_success" type="chain">Student_schoolquery</result>
+		</action>
+	</package>
+</struts>

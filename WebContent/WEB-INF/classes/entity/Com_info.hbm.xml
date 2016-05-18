@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	
+	<class name="entity.Com_info" table="com_info">
+		
+		<id name="cid" type="integer">
+			<generator class="native"/>
+		</id>
+		<!-- com_info(cid, cname, cfield, ctype, cprov, ccity) -->
+		<property name="cname" type="java.lang.String"/>
+		<property name="cfield" type="java.lang.String"/>
+		<property name="ctype" type="java.lang.String"/>
+		<property name="cprov" type="java.lang.String"/>
+		<property name="ccity" type="java.lang.String"/>
+	</class>
+
+</hibernate-mapping>
