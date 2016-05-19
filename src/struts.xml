@@ -48,6 +48,9 @@
 			<result name="add_success">/coms/Coms_add_success.jsp</result>
 			<result name="modify_success">/coms/Coms_modify.jsp</result>
 			<result name="delete_success" type="chain">Com_comquery</result>
+			<result name="update_success">/coms/Coms_modify_success.jsp</result>
+			<result name="add_error">/coms/Coms_add.jsp</result>
+			<result name="update_error">/coms/Coms_modify.jsp</result>
 		</action>
 	</package>
 </struts>

@@ -34,8 +34,21 @@ public class ComAction extends SuperAction{
 		return "delete_success";
 	}
 	
-	public String update(){
-		return "";
+	public String update() throws ParseException{
+		Com_info com = new Com_info();
+		com.setCid(Integer.valueOf(request.getParameter("cid")));
+		com.setCname(request.getParameter("cname"));
+		com.setCfield(request.getParameter("cfield"));
+		com.setCprov(request.getParameter("cprov"));
+		com.setCcity(request.getParameter("ccity"));
+		com.setCtype(request.getParameter("ctype"));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");		
+		com.setStartdate(sdf.parse(request.getParameter("startdate")));
+		com.setEnddate(sdf.parse(request.getParameter("enddate")));
+		ComDAO cdao = new ComDAOImpl();
+		if(cdao.updateCom(com)){
+			return "update_success";
+		}else return "update_error";
 	}
 	
 	public String add() throws Exception{

@@ -42,7 +42,7 @@ public class ComDAOImpl implements ComDAO{
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
 		try {
-			Com_info cinfo = (Com_info) session.get(Com_info.class, cid);
+			Com_info cinfo = (Com_info) session.get(Com_info.class, Integer.valueOf(cid));
 			tx.commit();
 			return cinfo;
 		} catch (Exception e) {

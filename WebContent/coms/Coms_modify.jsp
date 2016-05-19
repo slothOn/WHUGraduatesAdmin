@@ -103,45 +103,63 @@ select
 <form name="modifyForm" action="<%=path%>/coms/Com_update.action" method="post" style="margin-bottom: 20px">
 <h3>基本信息</h3>
 <table width="400" style="padding: 10px">
-  <tr>
-    <td width="30%">单位名称：</td>
-    <td><input type="text" name="sname" value='<s:property value="#request.modify_students.sname"/>'/></td>
-  </tr>
+   <input type="text" name="cid" value='<s:property value="#request.com_info.cid"/>' hidden>
    <tr>
     <td width="30%">单位名称：</td>
-    <td><input type="text" name="sname" value='<s:property value="#request.modify_students.sname"/>'/></td>
+    <td><input type="text" name="cname" value='<s:property value="#request.com_info.cname"/>'/></td>
   </tr>
   <tr>
-  	<td width="30%">单位性质:</td>
+    <td width="30%">所属行业：</td>
+    <td><input type="text" name="cfield" value='<s:property value="#request.com_info.cfield"/>'/></td>
+  </tr>
+  <tr>
+  	<td>单位性质:</td>
   	<td>
-  		<select name="political">
-  			<option value='<s:property value="#request.modify_students.political"/>' selected><s:property value="#request.modify_students.political"/></option>
-  			<option value="无">无</option>
-  			<option value="共青团员">共青团员</option>
-  			<option value="共产党员">共产党员</option>
+  		<select name="ctype">
+  			<option selected value='<s:property value="#request.com_info.ctype"/>'><s:property value="#request.com_info.ctype"/></option>
+  			<option value="事业单位">事业单位</option>
+  			<option value="国企">国企</option>
+  			<option value="外企">外企</option>
+  			<option value="民企">民企</option>
+  			<option value="研究机构">研究机构</option>
+  			<option value="其他">其他</option>
   		</select>
   	</td>
   </tr>
+  
   <tr>
-    <!--<input type="text" name="address" /> -->
-    <td>所在省：</td>
+    <td>省  份：</td>
     <td>
-    	<select id="selProvince" name="sprov">
-    		<option value='<s:property value="#request.modify_students.sprov"/>' selected><s:property value="#request.modify_students.sprov"/></option>
+    	<select id="selProvince" onchange="provinceChange();" name="cprov">
+    		<option selected value='<s:property value="#request.com_info.cname"/>'><s:property value="#request.com_info.cprov"/></option>
     	</select>
     </td>
   </tr>
   <tr>
-  	<td>所在市：</td>
+  	<td>市(区)：</td>
   	<td>
-  		<select id="selCity" name="scity" onclick="provinceChange();">
-  			<option value='<s:property value="#request.modify_students.scity"/>' selected><s:property value="#request.modify_students.scity"/></option>
+  		<select id="selCity" name="ccity" onclick="provinceChange();">
+  			<option selected value='<s:property value="#request.com_info.ccity"/>'><s:property value="#request.com_info.ccity"/></option>
   		</select>
   	</td>
   </tr>
+  
   <tr>
-  	<td><input class="button" type="button" value="返回" onclick="window.location.href='Com_comquery.action'"></td>
-    <td><input class="button" type="submit" value="修改"></td>
+    <td>招聘起始：</td>
+    <td><input name="startdate" type="text" id="control_date" size="20"
+      maxlength="10" onclick="new Calendar().show(this);" readonly="readonly"
+      value='<s:date name="#request.com_info.startdate" format="yyyy-MM-dd" />' />
+    </td>
+  </tr>
+  <tr>
+    <td>招聘结束：</td>
+     <td><input name="enddate" type="text" id="control_date" size="20"
+      maxlength="10" onclick="new Calendar().show(this);" readonly="readonly"
+      value='<s:date name="#request.com_info.enddate" format="yyyy-MM-dd" />' />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input class="button" type="submit" value="修改"></td>
   </tr>
 </table>
 </form>
