@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Date;
+
 //com_info(cid, cname, cfield, ctype, cprov, ccity)
 public class Com_info {
 	private Integer cid;
@@ -8,10 +10,28 @@ public class Com_info {
 	private String ctype;
 	private String cprov;
 	private String ccity;
+	private Date startdate;
+	private Date enddate;
 	
+	public Date getStartdate() {
+		return startdate;
+	}
+
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
+	}
+
+	public Date getEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
+	}
+
 	public Com_info(){}
 	
-	public Com_info(Integer cid, String cname, String cfield, String ctype, String cprov, String ccity) {
+	public Com_info(Integer cid, String cname, String cfield, String ctype, String cprov, String ccity, Date startdate, Date enddate) {
 		super();
 		this.cid = cid;
 		this.cname = cname;
@@ -19,6 +39,9 @@ public class Com_info {
 		this.ctype = ctype;
 		this.cprov = cprov;
 		this.ccity = ccity;
+		
+		this.startdate = startdate;
+		this.enddate = enddate;
 	}
 
 

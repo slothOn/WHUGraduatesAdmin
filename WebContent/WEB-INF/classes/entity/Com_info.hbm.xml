@@ -16,6 +16,9 @@
 		<property name="ctype" type="java.lang.String"/>
 		<property name="cprov" type="java.lang.String"/>
 		<property name="ccity" type="java.lang.String"/>
+		
+		<property name="startdate" type="date"/>
+		<property name="enddate" type="date"/>
 	</class>
 
 </hibernate-mapping>

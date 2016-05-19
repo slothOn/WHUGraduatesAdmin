@@ -85,10 +85,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="tips">
 	<div id="buttonGroup">
 		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">
-			<a href="<%=path%>/coms/Coms_add.jsp">添加单位</a>
+			<a href="<%=path%>/students/Students_add.jsp">添加记录</a>
 		</div>
 		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">
-			<a>查找单位</a>
+			<a>查找记录</a>
 		</div>
 	</div>
 </div>
@@ -96,22 +96,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 从session中获取学生集合 -->
 
 <table class="default" width="100%">
+	<col width="20%">
 	<col width="15%">
-	<col width="10%">
-	<col width="10%">
-	<col width="10%">
 	<col width="15%">
-	<col width="10">
-	<col width="10">
+	<col width="15%">
+	<col width="15%">
 	<col width="20%">
 	<tr class="title">
 		<td>单位名称</td>
-		<td>所属行业</td>
+		<td>起始时间</td>
 		<td>单位性质</td>
 		<td>所在省</td>
 		<td>所在市</td>
-		<td>起始日期</td>
-		<td>结束日期</td>
 		<td>操作</td>
 	</tr>
 	
@@ -123,8 +119,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td><s:property value="#com.ctype"/></td>
 			<td><s:property value="#com.cprov"/></td>
 			<td><s:property value="#com.ccity"/></td>
-			<td><s:property value="#com.startdate"/></td>
-			<td><s:property value="#com.enddate"/></td>
 			<td>
 			<a href="<%=path%>/coms/Com_modify.action?cid=<s:property value="#com.cid"/>">详情</a>
 			<a href="<%=path%>/coms/Com_modify.action?cid=<s:property value="#com.cid"/>">修改</a>

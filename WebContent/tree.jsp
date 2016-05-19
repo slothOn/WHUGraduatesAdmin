@@ -17,12 +17,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 var treeMenu = [
 	{ level:1, name:"学生管理"},
 	{ level:2, name:"学生列表", ico:"images/icon_default.gif",link:"students/Student_query.action"},
-	{ level:2, name:"大学生涯发展", ico:"images/icon_default.gif",link:"students/Student_schoolquery.action"},
-	{ level:2, name:"大学生涯发展", ico:"images/icon_default.gif",link:"students/Student_jobquery.action"},
+	{ level:1, name:"校园记录"},
+	{ level:2, name:"大学活动记录", ico:"images/icon_default.gif",link:"students/Student_schoolquery.action"},
+	{ level:1, name:"职场记录"},
+	{ level:2, name:"生涯发展记录", ico:"images/icon_default.gif",link:"students/Student_jobquery.action"},
 	{ level:1, name:"企业管理"},
 	{ level:2, name:"企业信息", ico:"images/icon_default.gif",link:"coms/Com_comquery.action"},
-	{ level:1, name:"招聘管理"},
-	{ level:2, name:"招聘信息", ico:"images/icon_default.gif",link:"news_list.html"},
 ];
 </script>
 <style>
