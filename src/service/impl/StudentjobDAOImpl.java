@@ -12,7 +12,8 @@ import entity.Student_job;
 import service.StudentjobDAO;
 
 public class StudentjobDAOImpl implements StudentjobDAO{
-
+	
+	
 	@Override
 	public List<Student_job> queryAllRecords() {
 		// TODO Auto-generated method stub
@@ -60,7 +61,7 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 	}
 
 	@Override
-	public boolean addRecord(Student_job s) {
+	public Integer addRecord(Student_job s) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
@@ -68,12 +69,13 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 		try{
 			session.save(s);
 			tx.commit();
-			return true;
+			Integer sjid = s.getSjid();
+			return sjid;
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			tx.commit();
-			return false;
+			return 0;
 		}finally{
 			if(tx != null) tx = null;
 		}

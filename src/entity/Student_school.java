@@ -8,11 +8,20 @@ public class Student_school {
 	private String startyear;
 	private String endyear;
 	
+	private String sname;
+	
+	public String getSname() {
+		return sname;
+	}
+	public void setSname(String sname) {
+		this.sname = sname;
+	}
 	public Student_school(){}
-	public Student_school(Integer ssid, String sid, String activity, String honor, String startyear, String endyear) {
+	public Student_school(Integer ssid, String sid, String sname, String activity, String honor, String startyear, String endyear) {
 		super();
 		this.ssid = ssid;
 		this.sid = sid;
+		this.sname = sname;
 		this.activity = activity;
 		this.honor = honor;
 		this.startyear = startyear;
@@ -59,6 +68,6 @@ public class Student_school {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return ssid + "," + sid + "," + activity + "," + honor + "," + startyear + "," + endyear + ",";
+		return ssid + "," + sid + "," + sname + "," + activity + "," + honor + "," + startyear + "," + endyear + ",";
 	}
 }

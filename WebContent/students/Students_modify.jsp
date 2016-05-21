@@ -192,20 +192,20 @@ select
 	
 	<!-- 遍历大学活动 -->
 	<s:iterator value="#request.records_list" var="record">
-		<tr class="list record">
+		<tr class="list record" id='<s:property value="#record.ssid"/>'>
 			<td><s:property value="#record.activity"/></td>
 			<td><s:property value="#record.honor"/></td>
 			<td><s:property value="#record.startyear"/></td>
 			<td><s:property value="#record.endyear"/></td>
 			<td>
-			<a href="<%=path%>/students/Student_modify.action?sid=<s:property value="#record.sid"/>">修改</a>
-			<a href="<%=path%>/students/Student_schooldelete.action?ssid=<s:property value="#record.ssid"/>" onclick="javascript:return confirm('真的要删除吗？');">删除</a>
+			<a onclick='javascript:if(confirm("真的要删除吗？")) ajaxDelSchool(<s:property value="#record.ssid"/>);'>删除</a>
 			</td>
 		</tr>
 	</s:iterator>
 		<form class="addschool">
 	        <tr class="list">
 	            <input type="text" name="sid" value='<s:property value="#request.modify_students.sid"/>' hidden>
+	            <input type="text" name="sname" value='<s:property value="#request.modify_students.sname"/>' hidden>
 	            <td><input type="text" name="activity" class="input_v"></td>
 	            <td><input type="text" name="honor" class="input_v"></td>
 	            <td><input type="text" name="startyear" class="input_v"></td>
@@ -236,21 +236,21 @@ select
 	
 	<!-- 遍历职业生涯 -->
 	<s:iterator value="#request.jobrecords_list" var="record">
-		<tr class="list jobrecord">
+		<tr class="list jobrecord" id='<s:property value="#record.sjid"/>'>
 			<td><s:property value="#record.time"/></td>
 			<td><s:property value="#record.type"/></td>
 			<td><s:property value="#record.cname"/></td>
 			<td><s:property value="#record.job"/></td>
 			<td><s:property value="#record.comment"/></td>
 			<td>
-			<a href="<%=path%>/students/Student_modify.action?sid=<s:property value="#record.sid"/>">修改</a>
-			<a href="<%=path%>/students/Student_jobdelete.action?ssid=<s:property value="#record.sjid"/>" onclick="javascript:return confirm('真的要删除吗？');">删除</a>
+			<a onclick='javascript:if(confirm("真的要删除吗？")) ajaxDelJob(<s:property value="#record.sjid"/>);'>删除</a>
 			</td>
 		</tr>
 	</s:iterator>
 		<form class="addjob">
 	        <tr class="list">
 	            <input type="text" name="sid" value='<s:property value="#request.modify_students.sid"/>' hidden>
+	            <input type="text" name="sname" value='<s:property value="#request.modify_students.sname"/>' hidden>
 	            <td><input type="text" name="time" class="input_v"></td>
 	            <td><input type="text" name="type" class="input_v"></td>
 	            <td><input type="text" name="cname" class="input_v"></td>

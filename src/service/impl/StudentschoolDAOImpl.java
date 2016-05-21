@@ -61,19 +61,19 @@ public class StudentschoolDAOImpl implements StudentschoolDAO{
 	}
 
 	@Override
-	public boolean addRecord(Student_school s) {
+	public Integer addRecord(Student_school s) {
 		// TODO Auto-generated method stub
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
 			session.save(s);
 			tx.commit();
-			return true;
+			return s.getSsid();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			tx.commit();
-			return false;
+			return 0;
 		}finally {
 			if(tx != null) tx = null;
 		}

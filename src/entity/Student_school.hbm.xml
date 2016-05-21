@@ -12,6 +12,7 @@
 		</id>
 		<!-- student_school(ssid, sid, activity, honor, startyear, endyear) -->
 		<property name="sid" type="java.lang.String"/>
+		<property name="sname" type="java.lang.String"/>
 		<property name="activity" type="java.lang.String"/>
 		<property name="honor" type="java.lang.String"/>
 		<property name="startyear" type="java.lang.String"/>

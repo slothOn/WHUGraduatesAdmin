@@ -7,7 +7,7 @@ import entity.Student_school;
 public interface StudentschoolDAO {
 	public List<Student_school> queryAllRecords();
 	public List<Student_school> queryRecordBySid(String sid);
-	public boolean addRecord(Student_school s);
+	public Integer addRecord(Student_school s);
 	public boolean updateRecord(Student_school s);
 	public boolean deleteRecord(String ssid);
 }

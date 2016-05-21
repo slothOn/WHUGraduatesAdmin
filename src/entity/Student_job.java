@@ -12,12 +12,23 @@ public class Student_job {
 	private String job;
 	private String comment;
 	
+	private String sname;
+	
+	public String getSname() {
+		return sname;
+	}
+
+	public void setSname(String sname) {
+		this.sname = sname;
+	}
+
 	public Student_job(){}
 	
-	public Student_job(Integer sjid, String sid, String time, String type, String cname, String job, String comment) {
+	public Student_job(Integer sjid, String sid, String sname, String time, String type, String cname, String job, String comment) {
 		super();
 		this.sjid = sjid;
 		this.sid = sid;
+		this.sname = sname;
 		this.time = time;
 		this.type = type;
 		this.cname = cname;
@@ -70,6 +81,6 @@ public class Student_job {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return sjid + "," + sid + "," + time + "," + type + "," + cname + "," + job + "," + comment;
+		return sjid + "," + sid + "," + sname + "," + time + "," + type + "," + cname + "," + job + "," + comment;
 	}
 }

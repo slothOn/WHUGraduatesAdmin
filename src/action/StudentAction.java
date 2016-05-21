@@ -136,20 +136,44 @@ public class StudentAction extends SuperAction{
 		return "school_delete_success";
 	}
 	
+	public String schoolajaxdelete() throws Exception{
+		String ssid = request.getParameter("ssid");
+		StudentschoolDAO sdao = new StudentschoolDAOImpl();
+		if(sdao.deleteRecord(ssid)){
+			inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+		}else{
+			inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+		}
+		return SUCCESS;
+	}
+	
+	public String jobajaxdelete() throws Exception{
+		String sjid = request.getParameter("sjid");
+		StudentjobDAO sdao = new StudentjobDAOImpl();
+		if(sdao.deleteRecord(sjid)){
+			inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+		}else{
+			inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+		}
+		return SUCCESS;
+	}
+	
 	public String schooladd() throws Exception{
 		Map<String, String[]> map = request.getParameterMap();
 		String sid = map.get("sid")[0];
+		String sname = map.get("sname")[0];
 		String activity = map.get("activity")[0];
 		String honor = map.get("honor")[0];
 		String startyear = map.get("startyear")[0];
 		String endyear = map.get("endyear")[0];
-		Student_school ssch = new Student_school(0, sid, activity, honor, startyear, endyear);
+		Student_school ssch = new Student_school(0, sid, sname, activity, honor, startyear, endyear);
 		System.out.println(ssch);
 		StudentschoolDAO studao = new StudentschoolDAOImpl();
-		if(studao.addRecord(ssch)){
-			inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+		Integer ssid = studao.addRecord(ssch);
+		if(ssid != 0){
+			inputStream = new ByteArrayInputStream(String.valueOf(ssid).getBytes("UTF-8"));
 		}else{
-			inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+			inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
 		}
 		
 		return "success";
@@ -169,17 +193,19 @@ public class StudentAction extends SuperAction{
 	public String jobadd() throws Exception{
 		Map<String, String[]> map = request.getParameterMap();
 		String sid = map.get("sid")[0];
+		String sname = map.get("sname")[0];
 		String time = map.get("time")[0];
 		String type = map.get("type")[0];
 		String cname = map.get("cname")[0];
 		String job = map.get("job")[0];
 		String comment = map.get("comment")[0];
-		Student_job stujob = new Student_job(0, sid, time, type, cname, job, comment);
+		Student_job stujob = new Student_job(0, sid, sname, time, type, cname, job, comment);
 		StudentjobDAO sjdao = new StudentjobDAOImpl();
-		if(sjdao.addRecord(stujob)){
-			inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+		Integer sjid = sjdao.addRecord(stujob);
+		if(sjid != 0){
+			inputStream = new ByteArrayInputStream(String.valueOf(sjid).getBytes("UTF-8"));
 		}else{
-			inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+			inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
 		}
 		return SUCCESS;
 	}
