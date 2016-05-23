@@ -182,7 +182,7 @@ function setCity(provinec) {
 
     //先清空之前绑定的值
     $city.empty();
-
+    $city.append("<option value='' selected></option>");
     //设置对应省份的城市
     for (var i = 0, len = proCity.length; i < len; i++) {
         modelVal = proCity[i];

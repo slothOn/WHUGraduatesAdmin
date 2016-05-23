@@ -127,9 +127,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="<%=path%>/students/Student_schooldelete.action?ssid=<s:property value="#record.ssid"/>" onclick="javascript:return confirm('真的要删除吗？');">删除</a>
 			</td>
 		</tr>
-	</s:iterator>
-	
+	</s:iterator>	
 </table>
+	<div class="page_list">
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">&lt;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">&gt;</a></li>
+            <li><a href="#">末页</a></li>
+        </ul>
+   </div>
 </div>
 </body>
 </html>

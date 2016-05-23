@@ -262,7 +262,6 @@ select
 	        </tr>
     	</form>
 </table>
-
 </div>
 <script type="text/javascript" src="../js/addschool.js"></script>
 </body>

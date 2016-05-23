@@ -431,3 +431,26 @@ td.indent {
     margin-right:auto; 
     width:222px;
 }
+
+.page_list{
+    padding: 30px 150px;
+}
+.page_list ul{
+    list-style-type: none;
+    margin: 0 auto;
+    display: inline-block;
+}
+.page_list li{
+    float: left;
+}
+.page_list a{
+    text-decoration: none;
+    color: #000000;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #e8e8e8;
+}
+.page_list a:hover{
+    color: #ffffff;
+    background-color: #cc1b1b;
+}
