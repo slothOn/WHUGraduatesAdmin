@@ -81,4 +81,10 @@ public class Student_info {
 		this.sqq = sqq;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return sid + "," + sname + "," + gender + "," + political + "," + sprov + "," + scity 
+				+ "," + major + "," + tel + "," + sqq;
+	}
 }

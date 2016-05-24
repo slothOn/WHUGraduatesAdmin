@@ -90,6 +90,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">
 			<a>查找记录</a>
 		</div>
+		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">
+			<a>导出Excel</a>
+		</div>
 	</div>
 </div>
 <div id="mainContainer">

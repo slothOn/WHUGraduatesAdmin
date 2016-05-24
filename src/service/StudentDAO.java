@@ -16,4 +16,6 @@ public interface StudentDAO {
 	public List<Student_info> queryFilter(String sid, String sname, String gender, String political,
 			String sprov, String scity, String tel, String sqq, int page);
 	public List<Student_info> queryFilterSchool(String activity, String honor, String startyear, String endyear, int page);
+	public List<Student_info> queryFilterJob(String time, String type, String cname, String job, String comment, int page);
+	public void exportStu2Excel(List<Student_info> list, String filepath, String filename);
 }

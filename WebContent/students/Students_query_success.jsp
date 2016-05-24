@@ -3,6 +3,9 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String parameterurl = (String)request.getAttribute("parameterurl");
+parameterurl = (parameterurl == null ? "" : parameterurl);
+String methodurl = (String)request.getAttribute("methodurl");
 %>
 <!DOCTYPE html>
 <html>
@@ -90,6 +93,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">
 			<a href="<%=path%>/students/Students_query.jsp">查找学生</a>
 		</div>
+		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">
+			<a href="<%=path%>/students/Student_<%=methodurl%>.action?type=1&<%=parameterurl%>" onclick="">导出Excel</a>
+		</div>
 	</div>
 </div>
 
@@ -138,11 +144,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </table>
 	<div class="page_list">
         <ul>
-            <li><a href="students/Student_query.action?page=1">首页</a></li>
-            <li><a href='students/Student_query.action?page=<s:property value="#request.beforepage"/>'>&lt;</a></li>
+            <li><a href="students/Student_<%=methodurl%>.action?page=1&<%=parameterurl%>">首页</a></li>
+            <li><a href='students/Student_<%=methodurl%>.action?page=<s:property value="#request.beforepage"/>&<%=parameterurl%>'>&lt;</a></li>
             <li><a href="#">当前第<s:property value="#request.pagenum"/>页</a></li>
-            <li><a href='students/Student_query.action?page=<s:property value="#request.afterpage"/>'>&gt;</a></li>
-            <li><a href='students/Student_query.action?page=<s:property value="#request.pagenum"/>'>末页</a></li>
+            <li><a href='students/Student_<%=methodurl%>.action?page=<s:property value="#request.afterpage"/>&<%=parameterurl%>'>&gt;</a></li>
+            <li><a href='students/Student_<%=methodurl%>.action?page=<s:property value="#request.pagenum"/>&<%=parameterurl%>'>末页</a></li>
             <li>共<s:property value="#request.pagesize"/>页</li>
             <li>&nbsp;&nbsp;</li>
 	        <li>转至:</li>

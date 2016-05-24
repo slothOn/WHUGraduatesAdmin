@@ -251,6 +251,10 @@ public class StudentAction extends SuperAction{
 		String tel = request.getParameter("tel");
 		String sqq = request.getParameter("sqq");
 		
+		String parameterurl = "sid=" + sid + "&sname=" + sname +"&gender=" + gender
+				+ "&political=" + political + "&sprov=" + sprov + "&scity=" + scity + "&tel="
+				+ tel + "&sqq=" + sqq;
+		
 		String pagestr = request.getParameter("page") == null || "".equals(request.getParameter("page")) ? "1": request.getParameter("page");		
 		int pagenum = Integer.valueOf(pagestr);	
 		StudentDAO sdao = new StudentDAOImpl();
@@ -277,6 +281,9 @@ public class StudentAction extends SuperAction{
 		request.setAttribute("pagenum", pagenum);
 		request.setAttribute("beforepage", beforepage);
 		request.setAttribute("afterpage", afterpage);
+		
+		request.setAttribute("methodurl", "queryByInfo");
+		request.setAttribute("parameterurl", parameterurl);
 		
 		return "query_success";
 	}
@@ -316,4 +323,42 @@ public class StudentAction extends SuperAction{
 		
 		return "query_success";
 	}
+	
+	public String queryByJob(){
+		String time = request.getParameter("time");
+		String type = request.getParameter("type");
+		String cname = request.getParameter("cname");
+		String job = request.getParameter("job");
+		String comment = request.getParameter("comment");
+		
+		String pagestr = request.getParameter("page") == null || "".equals(request.getParameter("page")) ? "1": request.getParameter("page");		
+		int pagenum = Integer.valueOf(pagestr);	
+		StudentDAO sdao = new StudentDAOImpl();
+		List<Student_info> list = null;
+		
+		if("".equals(time) || "".equals(type) || "".equals(cname) || "".equals(job) || "".equals(comment)){
+			list = sdao.queryRecordsByPage(pagenum);
+		}else{
+			list = sdao.queryFilterJob(time, type, cname, job, comment, pagenum);
+		}
+		
+		request.setAttribute("students_list", list);
+		int rowsnum = list.size(), pagesize = 0;
+		if(rowsnum % 12 == 0){
+			pagesize = rowsnum / 12;
+		}else pagesize = rowsnum / 12 + 1;
+		
+		int beforepage = pagenum - 1;
+		int afterpage = pagenum + 1;
+		beforepage = beforepage > 0? beforepage : 1;
+		afterpage = afterpage <= pagesize? afterpage : pagesize; 
+		
+		request.setAttribute("pagesize", pagesize);
+		request.setAttribute("pagenum", pagenum);
+		request.setAttribute("beforepage", beforepage);
+		request.setAttribute("afterpage", afterpage);
+		
+		return "query_success";
+	}
+	
 }
