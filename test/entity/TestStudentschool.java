@@ -22,12 +22,12 @@ public class TestStudentschool {
 	}
 	*/
 	
-	@Test
-	public void testQuery(){
-		StudentDAO studao = new StudentDAOImpl();
-		List<Student_info> list = studao.queryFilterSchool("a", "", "", "", 0);
-		for(Student_info stu:list){
-			System.out.println(stu);
-		}
-	}
+//	@Test
+//	public void testQuery(){
+//		StudentDAO studao = new StudentDAOImpl();
+//		List<Student_info> list = studao.queryFilterSchool("a", "", "", "", 0);
+//		for(Student_info stu:list){
+//			System.out.println(stu);
+//		}
+//	}
 }

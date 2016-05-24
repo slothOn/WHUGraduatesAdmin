@@ -16,10 +16,10 @@ public class TestStudent {
 	}
 	*/
 	
-	@Test
-	public void OutputTest(){
-		StudentDAO sdao = new StudentDAOImpl();
-		List<Student_info> list = sdao.queryAllStudents();
-		sdao.exportStu2Excel(list, "/Users/zxc/", "test.xls");
-	}
+//	@Test
+//	public void OutputTest(){
+//		StudentDAO sdao = new StudentDAOImpl();
+//		List<Student_info> list = sdao.queryAllStudents();
+//		sdao.exportStu2Excel(list, "/Users/zxc/", "test.xls");
+//	}
 }

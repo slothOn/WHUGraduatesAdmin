@@ -1,6 +1,7 @@
 package action;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -9,6 +10,11 @@ import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.hibernate.Criteria;
 
 import entity.Student_info;
@@ -28,17 +34,27 @@ public class StudentAction extends SuperAction{
 		return inputStream;
 	}
 	public String query(){
-		String pagestr = "".equals(request.getParameter("page")) ? "1": request.getParameter("page");		
+		String casetype = request.getParameter("casetype");
+		boolean flag = false;
+		if(casetype != null && casetype.equals("1")) flag = true;
+		
+		String pagestr = request.getParameter("page") == null || "".equals(request.getParameter("page")) ? "1": request.getParameter("page");
 		int pagenum = Integer.valueOf(pagestr);	
 		StudentDAO sdao = new StudentDAOImpl();
 		//List<Student_info> list = sdao.queryAllStudents();
-		List<Student_info> list = sdao.queryRecordsByPage(pagenum);
+		List<Student_info> list = sdao.queryRecordsByPage(pagenum, flag);
 		request.setAttribute("students_list", list);
+		request.setAttribute("methodurl", "query");
 		
 		int rowsnum = sdao.getRowsnum(), pagesize = 0;
 		if(rowsnum % 12 == 0){
 			pagesize = rowsnum / 12;
 		}else pagesize = rowsnum / 12 + 1;
+		
+		if(flag){
+			exportStu2Excel(list, "", "");	
+			return "export_success";
+		}
 		
 		int beforepage = pagenum - 1;
 		int afterpage = pagenum + 1;
@@ -242,6 +258,10 @@ public class StudentAction extends SuperAction{
 	}
 	
 	public String queryByInfo() throws Exception{
+		String casetype = request.getParameter("casetype");
+		boolean flag = false;
+		if(casetype != null && casetype.equals("1")) flag = true;
+		
 		String sid = request.getParameter("sid");
 		String sname = request.getParameter("sname");
 		String gender = request.getParameter("gender");
@@ -261,10 +281,15 @@ public class StudentAction extends SuperAction{
 		List<Student_info> list = null;
 		if("".equals(sid) && "".equals(sname) && "".equals(gender) && "".equals(political) && "".equals(sprov)
 				&& "".equals(scity) && "".equals(tel) && "".equals(sqq)){
-			list = sdao.queryRecordsByPage(pagenum);
+			list = sdao.queryRecordsByPage(pagenum, flag);
 		}else{
-			list = sdao.queryFilter(sid, sname, gender, political, sprov, scity, tel, sqq, pagenum);
+			list = sdao.queryFilter(sid, sname, gender, political, sprov, scity, tel, sqq, pagenum, flag);
 		}	
+		
+		if(flag){
+			exportStu2Excel(list, "", "");	
+			return "";
+		}
 		
 		request.setAttribute("students_list", list);
 		int rowsnum = list.size(), pagesize = 0;
@@ -289,6 +314,10 @@ public class StudentAction extends SuperAction{
 	}
 	
 	public String queryBySchool(){
+		String casetype = request.getParameter("casetype");
+		boolean flag = false;
+		if(casetype != null && casetype.equals("1")) flag = true;
+		
 		String activity = request.getParameter("activity");
 		String honor = request.getParameter("honor");
 		String startyear = request.getParameter("startyear");
@@ -300,9 +329,9 @@ public class StudentAction extends SuperAction{
 		List<Student_info> list = null;
 		
 		if("".equals(activity) || "".equals(honor) || "".equals(startyear) || "".equals(endyear)){
-			list = sdao.queryRecordsByPage(pagenum);
+			list = sdao.queryRecordsByPage(pagenum, flag);
 		}else{
-			list = sdao.queryFilterSchool(activity, honor, startyear, endyear, pagenum);
+			list = sdao.queryFilterSchool(activity, honor, startyear, endyear, pagenum, flag);
 		}
 		
 		request.setAttribute("students_list", list);
@@ -325,6 +354,10 @@ public class StudentAction extends SuperAction{
 	}
 	
 	public String queryByJob(){
+		String casetype = request.getParameter("casetype");
+		boolean flag = false;
+		if(casetype != null && casetype.equals("1")) flag = true;
+		
 		String time = request.getParameter("time");
 		String type = request.getParameter("type");
 		String cname = request.getParameter("cname");
@@ -337,9 +370,9 @@ public class StudentAction extends SuperAction{
 		List<Student_info> list = null;
 		
 		if("".equals(time) || "".equals(type) || "".equals(cname) || "".equals(job) || "".equals(comment)){
-			list = sdao.queryRecordsByPage(pagenum);
+			list = sdao.queryRecordsByPage(pagenum, flag);
 		}else{
-			list = sdao.queryFilterJob(time, type, cname, job, comment, pagenum);
+			list = sdao.queryFilterJob(time, type, cname, job, comment, pagenum, flag);
 		}
 		
 		request.setAttribute("students_list", list);
@@ -361,4 +394,64 @@ public class StudentAction extends SuperAction{
 		return "query_success";
 	}
 	
+	public void exportStu2Excel(List<Student_info> list, String filepath, String filename){
+		// TODO Auto-generated method stub
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet("学生表");
+		HSSFRow row = sheet.createRow(0);
+		HSSFCellStyle style = wb.createCellStyle();
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		
+		HSSFCell cell = row.createCell(0);
+		cell.setCellValue("学号");
+		cell.setCellStyle(style);
+		cell = row.createCell(1);
+		cell.setCellValue("姓名");
+		cell.setCellStyle(style);
+		cell = row.createCell(2);
+		cell.setCellValue("性别");
+		cell.setCellStyle(style);
+		cell = row.createCell(3);
+		cell.setCellValue("政治面貌");
+		cell.setCellStyle(style);
+		cell = row.createCell(4);
+		cell.setCellValue("省市");
+		cell.setCellStyle(style);
+		cell = row.createCell(5);
+		cell.setCellValue("专业");
+		cell.setCellStyle(style);
+		cell = row.createCell(6);
+		cell.setCellValue("电话");
+		cell.setCellStyle(style);
+		cell = row.createCell(7);
+		cell.setCellValue("QQ");
+		cell.setCellStyle(style);
+		
+		for(int i = 1; i <= list.size(); i++){
+			row = sheet.createRow(i);
+			Student_info stu = list.get(i-1);
+			row.createCell(0).setCellValue(stu.getSid());
+			row.createCell(1).setCellValue(stu.getSname());
+			row.createCell(2).setCellValue(stu.getGender());
+			row.createCell(3).setCellValue(stu.getPolitical());
+			row.createCell(4).setCellValue(stu.getSprov() + "" + stu.getScity());
+			row.createCell(5).setCellValue(stu.getMajor());
+			row.createCell(6).setCellValue(stu.getTel());
+			row.createCell(7).setCellValue(stu.getSqq());
+		}
+		
+		try{
+			/*FileOutputStream out = new FileOutputStream(filepath + filename);
+			wb.write(out);
+			out.close();*/
+			//wb.write(response.getOutputStream());
+			ByteArrayOutputStream wbout = new ByteArrayOutputStream();
+			wb.write(wbout);
+			inputStream = new ByteArrayInputStream(wbout.toByteArray());
+			wb.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			inputStream = new ByteArrayInputStream("输出错误".getBytes());
+		}
+	}
 }

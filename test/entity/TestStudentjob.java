@@ -20,12 +20,12 @@ public class TestStudentjob {
 		}
 	}
 	*/
-	@Test
-	public void testFilterQuery(){
-		StudentDAO sdao = new StudentDAOImpl();
-		List<Student_info> list = sdao.queryFilterJob("", "", "武汉大学", "", "", 1);
-		for(Student_info s:list){
-			System.out.println(s);
-		}
-	}
+//	@Test
+//	public void testFilterQuery(){
+//		StudentDAO sdao = new StudentDAOImpl();
+//		List<Student_info> list = sdao.queryFilterJob("", "", "武汉大学", "", "", 1);
+//		for(Student_info s:list){
+//			System.out.println(s);
+//		}
+//	}
 }

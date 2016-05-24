@@ -134,7 +134,7 @@ public class StudentDAOImpl implements StudentDAO{
 	}
 
 	@Override
-	public List<Student_info> queryRecordsByPage(int page) {
+	public List<Student_info> queryRecordsByPage(int page, boolean flag) {
 		// TODO Auto-generated method stub
 		int pagesize = 10;
 		Transaction tx = null;
@@ -143,8 +143,11 @@ public class StudentDAOImpl implements StudentDAO{
 		try {
 			String hql = "from Student_info";
 			Query query = session.createQuery(hql);
-			query.setFirstResult((page - 1) * pagesize);
-			query.setMaxResults(pagesize);
+			//不下载
+			if(!flag){
+				query.setFirstResult((page - 1) * pagesize);
+				query.setMaxResults(pagesize);
+			}
 			List<Student_info> list = query.list();
 			tx.commit();
 			return list;
@@ -182,7 +185,7 @@ public class StudentDAOImpl implements StudentDAO{
 
 	@Override
 	public List<Student_info> queryFilter(String sid, String sname, String gender, String political, String sprov,
-			String scity, String tel, String sqq, int page) {
+			String scity, String tel, String sqq, int page, boolean flag) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
@@ -198,8 +201,11 @@ public class StudentDAOImpl implements StudentDAO{
 			if(scity != null && !"".equals(scity)) criteria.add(Restrictions.eq("scity", scity));
 			if(tel != null && !"".equals(tel)) criteria.add(Restrictions.eq("tel", tel));
 			if(sqq != null && !"".equals(sqq)) criteria.add(Restrictions.eq("sqq", sqq));
-			criteria.setFirstResult((page - 1) * pagesize);
-			criteria.setMaxResults(pagesize);
+			//不下载
+			if(!flag){
+				criteria.setFirstResult((page - 1) * pagesize);
+				criteria.setMaxResults(pagesize);
+			}
 			List<Student_info> list = criteria.list();
 			tx.commit();
 			return list;		
@@ -215,7 +221,7 @@ public class StudentDAOImpl implements StudentDAO{
 
 	@Override
 	public List<Student_info> queryFilterSchool(String activity, String honor, String startyear, String endyear,
-			int page) {
+			int page, boolean flag) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
@@ -231,6 +237,11 @@ public class StudentDAOImpl implements StudentDAO{
 			if(endyear != null && !"".equals(endyear)) detachcriteria.add(Restrictions.eq("endyear", endyear));
 			detachcriteria.add(Property.forName("stu.sid").eqProperty("school.sid"));
 			criteria.add(Subqueries.exists(detachcriteria.setProjection(Projections.property("school.sid"))));
+			//不下载
+			if(!flag){
+				criteria.setFirstResult((page - 1) * pagesize);
+				criteria.setMaxResults(pagesize);
+			}
 			list = criteria.list();
 			tx.commit();
 			return list;
@@ -246,7 +257,7 @@ public class StudentDAOImpl implements StudentDAO{
 
 	@Override
 	public List<Student_info> queryFilterJob(String time, String type, String cname, String job, String comment,
-			int page) {
+			int page, boolean flag) {
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
@@ -260,9 +271,13 @@ public class StudentDAOImpl implements StudentDAO{
 			if(cname != null && !"".equals(cname)) detachcriteria.add(Restrictions.eq("cname", cname));
 			if(job != null && !"".equals(job)) detachcriteria.add(Restrictions.eq("job", job));
 			if(comment != null && !"".equals(comment)) detachcriteria.add(Restrictions.eq("comment", comment));
-			
 			detachcriteria.add(Property.forName("stu.sid").eqProperty("job.sid"));
 			criteria.add(Subqueries.exists(detachcriteria.setProjection(Projections.property("job.sid"))));
+			//不下载
+			if(!flag){
+				criteria.setFirstResult((page - 1) * pagesize);
+				criteria.setMaxResults(pagesize);
+			}
 			list = criteria.list();
 			tx.commit();
 			return list;
@@ -273,62 +288,6 @@ public class StudentDAOImpl implements StudentDAO{
 			return new ArrayList<Student_info>();
 		}finally{
 			if(tx != null) tx = null;
-		}
-	}
-
-	@Override
-	public void exportStu2Excel(List<Student_info> list, String filepath, String filename){
-		// TODO Auto-generated method stub
-		HSSFWorkbook wb = new HSSFWorkbook();
-		HSSFSheet sheet = wb.createSheet(filename);
-		HSSFRow row = sheet.createRow(0);
-		HSSFCellStyle style = wb.createCellStyle();
-		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-		
-		HSSFCell cell = row.createCell(0);
-		cell.setCellValue("学号");
-		cell.setCellStyle(style);
-		cell = row.createCell(1);
-		cell.setCellValue("姓名");
-		cell.setCellStyle(style);
-		cell = row.createCell(2);
-		cell.setCellValue("性别");
-		cell.setCellStyle(style);
-		cell = row.createCell(3);
-		cell.setCellValue("政治面貌");
-		cell.setCellStyle(style);
-		cell = row.createCell(4);
-		cell.setCellValue("省市");
-		cell.setCellStyle(style);
-		cell = row.createCell(5);
-		cell.setCellValue("专业");
-		cell.setCellStyle(style);
-		cell = row.createCell(6);
-		cell.setCellValue("电话");
-		cell.setCellStyle(style);
-		cell = row.createCell(7);
-		cell.setCellValue("QQ");
-		cell.setCellStyle(style);
-		
-		for(int i = 1; i <= list.size(); i++){
-			row = sheet.createRow(i);
-			Student_info stu = list.get(i-1);
-			row.createCell(0).setCellValue(stu.getSid());
-			row.createCell(1).setCellValue(stu.getSname());
-			row.createCell(2).setCellValue(stu.getGender());
-			row.createCell(3).setCellValue(stu.getPolitical());
-			row.createCell(4).setCellValue(stu.getSprov() + "" + stu.getScity());
-			row.createCell(5).setCellValue(stu.getMajor());
-			row.createCell(6).setCellValue(stu.getTel());
-			row.createCell(7).setCellValue(stu.getSqq());
-		}
-		try {
-			FileOutputStream out = new FileOutputStream(filepath + filename);
-			wb.write(out);
-			out.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
 		}
 	}
 	

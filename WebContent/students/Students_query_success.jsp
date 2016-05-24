@@ -94,7 +94,7 @@ String methodurl = (String)request.getAttribute("methodurl");
 			<a href="<%=path%>/students/Students_query.jsp">查找学生</a>
 		</div>
 		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">
-			<a href="<%=path%>/students/Student_<%=methodurl%>.action?type=1&<%=parameterurl%>" onclick="">导出Excel</a>
+			<a href="<%=path%>/students/Student_<%=methodurl%>.action?casetype=1&<%=parameterurl%>" target="_blank">导出Excel</a>
 		</div>
 	</div>
 </div>
