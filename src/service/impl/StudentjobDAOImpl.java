@@ -1,14 +1,18 @@
 package service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import db.MyHibernateSessionFactory;
-import entity.Student_info;
 import entity.Student_job;
+import entity.Student_school;
 import service.StudentjobDAO;
 
 public class StudentjobDAOImpl implements StudentjobDAO{
@@ -103,6 +107,67 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 			e.printStackTrace();
 			tx.commit();
 			return false;
+		}finally{
+			if(tx != null) tx = null;
+		}
+	}
+
+	@Override
+	public List<Student_job> queryFilter(String time, String type, String cname, String job, String comment, int page,
+			boolean flag) {
+		// TODO Auto-generated method stub
+		Transaction tx = null;
+		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
+		tx = session.beginTransaction();
+		int pagesize = 10;
+		try {
+			Criteria criteria = session.createCriteria(Student_job.class);
+			if(time != null && !"".equals(time)) criteria.add(Restrictions.like("time", "%" + time + "%"));
+			if(type != null && !"".equals(type)) criteria.add(Restrictions.like("type", "%" + type + "%"));
+			if(cname != null && !"".equals(cname)) criteria.add(Restrictions.like("cname", "%" + cname + "%"));
+			if(job != null && !"".equals(job)) criteria.add(Restrictions.like("job", "%" + job + "%"));
+			if(comment != null && !"".equals(comment)) criteria.add(Restrictions.like("comment", "%" + comment + "%"));
+			//不下载
+			if(!flag){
+				criteria.setFirstResult((page - 1) * pagesize);
+				criteria.setMaxResults(pagesize);
+			}
+			List<Student_job> list = criteria.list();
+			tx.commit();
+			return list;		
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.commit();
+			return new ArrayList<Student_job>();
+		}finally{
+			if(tx != null) tx = null;
+		}
+	}
+
+	@Override
+	public int queryFilter(String time, String type, String cname, String job, String comment) {
+		// TODO Auto-generated method stub
+		Transaction tx = null;
+		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
+		tx = session.beginTransaction();
+		int pagesize = 10;
+		try {
+			Criteria criteria = session.createCriteria(Student_job.class);
+			if(time != null && !"".equals(time)) criteria.add(Restrictions.like("time", "%" + time + "%"));
+			if(type != null && !"".equals(type)) criteria.add(Restrictions.like("type", "%" + type + "%"));
+			if(cname != null && !"".equals(cname)) criteria.add(Restrictions.like("cname", "%" + cname + "%"));
+			if(job != null && !"".equals(job)) criteria.add(Restrictions.like("job", "%" + job + "%"));
+			if(comment != null && !"".equals(comment)) criteria.add(Restrictions.like("comment", "%" + comment + "%"));
+			
+			int num = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+			tx.commit();
+			return num;		
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.commit();
+			return 0;
 		}finally{
 			if(tx != null) tx = null;
 		}

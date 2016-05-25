@@ -3,11 +3,14 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String parameterurl = (String)request.getAttribute("parameterurl");
+parameterurl = (parameterurl == null ? "" : parameterurl);
+String methodurl = (String)request.getAttribute("methodurl");
 %>
 <!DOCTYPE html>
 <html>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<link rel="stylesheet" type="text/css" href="<%=path %>/css/default.css" />
 <style type="text/css">
 * {
     background: none repeat scroll 0 0 transparent;
@@ -84,14 +87,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <div id="tips">
 	<div id="buttonGroup">
-		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'" onclick="alert('请在学生列表页为指定学生添加')；">
+		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">
 			添加记录
 		</div>
 		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">
-			<a>查找记录</a>
+			<a href="<%=path%>/students/Studentschool_query.jsp">查找记录</a>
 		</div>
 		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">
-			<a>导出Excel</a>
+			<a href="<%=path%>/students/Student_<%=methodurl%>.action?casetype=1&<%=parameterurl%>" target="_blank">导出Excel</a>
 		</div>
 	</div>
 </div>
@@ -134,16 +137,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </table>
 	<div class="page_list">
         <ul>
-            <li><a href="#">首页</a></li>
-            <li><a href="#">&lt;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">&gt;</a></li>
-            <li><a href="#">末页</a></li>
-        </ul>
+            <li><a href="students/Student_<%=methodurl%>.action?page=1&<%=parameterurl%>">首页</a></li>
+            <li><a href='students/Student_<%=methodurl%>.action?page=<s:property value="#request.beforepage"/>&<%=parameterurl%>'>&lt;</a></li>
+            <li><a href="#">当前第<s:property value="#request.pagenum"/>页</a></li>
+            <li><a href='students/Student_<%=methodurl%>.action?page=<s:property value="#request.afterpage"/>&<%=parameterurl%>'>&gt;</a></li>
+            <li><a href='students/Student_<%=methodurl%>.action?page=<s:property value="#request.pagenum"/>&<%=parameterurl%>'>末页</a></li>
+            <li>共<s:property value="#request.pagesize"/>页</li>
+            <li>&nbsp;&nbsp;</li>
+	        <li>转至:</li>
+	        <li>
+	            <form action="students/Student_<%=methodurl%>.action?<%=parameterurl%>" id="pageform">
+	                <span  style="margin: 5px;padding: 10px;"><input id="page" type="text" name="page" id="page" style="background: #e1e1e1; width:50px; height:20px"/></span>页
+	                <span  style="padding: 10px; margin: 5px"><input type="button" value="跳转" font-size="20px" onclick="postparamform();"/></span>
+	            </form>
+	        </li>
+	     </ul>
    </div>
 </div>
+<script>
+function postparamform(){
+    var pageform = document.getElementById("pageform");
+    var pageval = document.getElementById("page").value;
+    var formurl = pageform.action + "&page=" + pageval;
+    window.location = formurl;
+    return false;
+}
+</script>
 </body>
 </html>

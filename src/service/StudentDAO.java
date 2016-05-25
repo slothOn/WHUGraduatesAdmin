@@ -17,4 +17,10 @@ public interface StudentDAO {
 			String sprov, String scity, String tel, String sqq, int page, boolean flag);
 	public List<Student_info> queryFilterSchool(String activity, String honor, String startyear, String endyear, int page, boolean flag);
 	public List<Student_info> queryFilterJob(String time, String type, String cname, String job, String comment, int page, boolean flag);
+
+	public int queryFilter(String sid, String sname, String gender, String political,
+			String sprov, String scity, String tel, String sqq);
+	public int queryFilterSchool(String activity, String honor, String startyear, String endyear);
+	public int queryFilterJob(String time, String type, String cname, String job, String comment);
+
 }

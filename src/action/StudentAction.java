@@ -45,6 +45,7 @@ public class StudentAction extends SuperAction{
 		List<Student_info> list = sdao.queryRecordsByPage(pagenum, flag);
 		request.setAttribute("students_list", list);
 		request.setAttribute("methodurl", "query");
+		request.setAttribute("parameterurl", "");
 		
 		int rowsnum = sdao.getRowsnum(), pagesize = 0;
 		if(rowsnum % 12 == 0){
@@ -163,9 +164,59 @@ public class StudentAction extends SuperAction{
 	}
 	
 	public String schoolquery(){
-		StudentschoolDAO sdao = new StudentschoolDAOImpl();
+		/*StudentschoolDAO sdao = new StudentschoolDAOImpl();
 		List<Student_school> list = sdao.queryAllRecords();
 		request.setAttribute("records_list", list);
+		return "school_query_success";*/
+		String casetype = request.getParameter("casetype");
+		boolean flag = false;
+		if(casetype != null && casetype.equals("1")) flag = true;
+		
+		String activity = request.getParameter("activity");
+		String honor = request.getParameter("honor");
+		String startyear = request.getParameter("startyear");
+		String endyear = request.getParameter("endyear");
+		
+		if(activity == null) activity = "";
+		if(honor == null) honor = "";
+		if(startyear == null) startyear = "";
+		if(endyear == null) endyear = "";
+		
+		String parameterurl = "activity=" + activity + "&honor=" + honor + "&startyear=" + startyear + "&endyear=" + endyear;
+		
+		String pagestr = (request.getParameter("page") == null || "".equals(request.getParameter("page"))) ? "1": request.getParameter("page");		
+		int pagenum = Integer.valueOf(pagestr);	
+		
+		StudentschoolDAO ssdao = new StudentschoolDAOImpl();
+		List<Student_school> list = null;
+		
+		list = ssdao.queryFilter(activity, honor, startyear, endyear, pagenum, flag);	
+		
+		if(flag){
+			exportSchool2Excel(list, "", "");	
+			return "export_school_success";
+		}
+		
+		request.setAttribute("records_list", list);
+		int rowsnum = ssdao.queryFilter(activity, honor, startyear, endyear);
+		int pagesize = 0;
+		if(rowsnum % 12 == 0){
+			pagesize = rowsnum / 12;
+		}else pagesize = rowsnum / 12 + 1;
+		
+		int beforepage = pagenum - 1;
+		int afterpage = pagenum + 1;
+		beforepage = beforepage > 0? beforepage : 1;
+		afterpage = afterpage <= pagesize? afterpage : pagesize; 
+		
+		request.setAttribute("pagesize", pagesize);
+		request.setAttribute("pagenum", pagenum);
+		request.setAttribute("beforepage", beforepage);
+		request.setAttribute("afterpage", afterpage);
+		
+		request.setAttribute("methodurl", "schoolquery");
+		request.setAttribute("parameterurl", parameterurl);
+		
 		return "school_query_success";
 	}
 	
@@ -224,10 +275,64 @@ public class StudentAction extends SuperAction{
 	}
 	
 	public String jobquery(){
-		StudentjobDAO sdao = new StudentjobDAOImpl();
+		/*StudentjobDAO sdao = new StudentjobDAOImpl();
 		List<Student_job> list = sdao.queryAllRecords();
 		request.setAttribute("records_list", list);
+		return "job_query_success";*/
+		String casetype = request.getParameter("casetype");
+		boolean flag = false;
+		if(casetype != null && casetype.equals("1")) flag = true;
+		
+		String time = request.getParameter("time");
+		String type = request.getParameter("type");
+		String cname = request.getParameter("cname");
+		String job = request.getParameter("job");
+		String comment = request.getParameter("comment");
+		
+		if(time == null) time = "";
+		if(type == null) type = "";
+		if(cname == null) cname = "";
+		if(job == null) job = "";
+		if(comment == null) comment = "";
+		
+		String parameterurl = "time=" + time + "&type=" + type + 
+				"&cname=" + cname + "&job=" + job + "&comment=" + comment;
+		
+		String pagestr = (request.getParameter("page") == null || "".equals(request.getParameter("page"))) ? "1": request.getParameter("page");		
+		int pagenum = Integer.valueOf(pagestr);	
+		
+		StudentjobDAO sjdao = new StudentjobDAOImpl();
+		List<Student_job> list = null;
+		
+		list = sjdao.queryFilter(time, type, cname, job, comment, pagenum, flag);
+		
+		if(flag){
+			exportJob2Excel(list, "", "");	
+			return "export_job_success";
+		}
+		
+		request.setAttribute("records_list", list);
+		int rowsnum = sjdao.queryFilter(time, type, cname, job, comment);
+		int pagesize = 0;
+		if(rowsnum % 12 == 0){
+			pagesize = rowsnum / 12;
+		}else pagesize = rowsnum / 12 + 1;
+		
+		int beforepage = pagenum - 1;
+		int afterpage = pagenum + 1;
+		beforepage = beforepage > 0? beforepage : 1;
+		afterpage = afterpage <= pagesize? afterpage : pagesize; 
+		
+		request.setAttribute("pagesize", pagesize);
+		request.setAttribute("pagenum", pagenum);
+		request.setAttribute("beforepage", beforepage);
+		request.setAttribute("afterpage", afterpage);
+		
+		request.setAttribute("methodurl", "jobquery");
+		request.setAttribute("parameterurl", parameterurl);
+		
 		return "job_query_success";
+		
 	}
 	
 	public String jobadd() throws Exception{
@@ -271,6 +376,15 @@ public class StudentAction extends SuperAction{
 		String tel = request.getParameter("tel");
 		String sqq = request.getParameter("sqq");
 		
+		if(sid == null) sid = "";
+		if(sname == null) sname = "";
+		if(gender == null) gender = "";
+		if(political == null) political = "";
+		if(sprov == null) sprov = "";
+		if(scity == null) scity = "";
+		if(tel == null) tel = "";
+		if(sqq == null) sqq = "";
+		
 		String parameterurl = "sid=" + sid + "&sname=" + sname +"&gender=" + gender
 				+ "&political=" + political + "&sprov=" + sprov + "&scity=" + scity + "&tel="
 				+ tel + "&sqq=" + sqq;
@@ -288,11 +402,12 @@ public class StudentAction extends SuperAction{
 		
 		if(flag){
 			exportStu2Excel(list, "", "");	
-			return "";
+			return "export_success";
 		}
 		
 		request.setAttribute("students_list", list);
-		int rowsnum = list.size(), pagesize = 0;
+		int rowsnum = sdao.queryFilter(sid, sname, gender, political, sprov, scity, tel, sqq);
+		int pagesize = 0;
 		if(rowsnum % 12 == 0){
 			pagesize = rowsnum / 12;
 		}else pagesize = rowsnum / 12 + 1;
@@ -323,19 +438,31 @@ public class StudentAction extends SuperAction{
 		String startyear = request.getParameter("startyear");
 		String endyear = request.getParameter("endyear");
 		
+		if(activity == null) activity = "";
+		if(honor == null) honor = "";
+		if(startyear == null) startyear = "";
+		if(endyear == null) endyear = "";
+		
 		String pagestr = request.getParameter("page") == null || "".equals(request.getParameter("page")) ? "1": request.getParameter("page");		
 		int pagenum = Integer.valueOf(pagestr);	
 		StudentDAO sdao = new StudentDAOImpl();
 		List<Student_info> list = null;
 		
-		if("".equals(activity) || "".equals(honor) || "".equals(startyear) || "".equals(endyear)){
+		if("".equals(activity) && "".equals(honor) && "".equals(startyear) && "".equals(endyear)){
 			list = sdao.queryRecordsByPage(pagenum, flag);
 		}else{
 			list = sdao.queryFilterSchool(activity, honor, startyear, endyear, pagenum, flag);
 		}
 		
+		if(flag){
+			exportStu2Excel(list, "", "");	
+			return "export_success";
+		}
+		
+		String parameterurl = "activity=" + activity + "&honor=" + honor + "&startyear=" + startyear + "&endyear=" + endyear;
 		request.setAttribute("students_list", list);
-		int rowsnum = list.size(), pagesize = 0;
+		int rowsnum = sdao.queryFilterSchool(activity, honor, startyear, endyear);
+		int pagesize = 0;
 		if(rowsnum % 12 == 0){
 			pagesize = rowsnum / 12;
 		}else pagesize = rowsnum / 12 + 1;
@@ -345,6 +472,8 @@ public class StudentAction extends SuperAction{
 		beforepage = beforepage > 0? beforepage : 1;
 		afterpage = afterpage <= pagesize? afterpage : pagesize; 
 		
+		request.setAttribute("methodurl", "queryBySchool");
+		request.setAttribute("parameterurl", parameterurl);
 		request.setAttribute("pagesize", pagesize);
 		request.setAttribute("pagenum", pagenum);
 		request.setAttribute("beforepage", beforepage);
@@ -364,19 +493,31 @@ public class StudentAction extends SuperAction{
 		String job = request.getParameter("job");
 		String comment = request.getParameter("comment");
 		
+		if(time == null) time = "";
+		if(type == null) type = "";
+		if(cname == null) cname = "";
+		if(job == null) job = "";
+		if(comment == null) comment = "";
+		
 		String pagestr = request.getParameter("page") == null || "".equals(request.getParameter("page")) ? "1": request.getParameter("page");		
 		int pagenum = Integer.valueOf(pagestr);	
 		StudentDAO sdao = new StudentDAOImpl();
 		List<Student_info> list = null;
 		
-		if("".equals(time) || "".equals(type) || "".equals(cname) || "".equals(job) || "".equals(comment)){
+		if("".equals(time) && "".equals(type) && "".equals(cname) && "".equals(job) && "".equals(comment)){
 			list = sdao.queryRecordsByPage(pagenum, flag);
 		}else{
 			list = sdao.queryFilterJob(time, type, cname, job, comment, pagenum, flag);
 		}
 		
+		if(flag){
+			exportStu2Excel(list, "", "");	
+			return "export_success";
+		}
+		
 		request.setAttribute("students_list", list);
-		int rowsnum = list.size(), pagesize = 0;
+		int rowsnum = sdao.queryFilterJob(time, type, cname, job, comment);
+		int pagesize = 0;
 		if(rowsnum % 12 == 0){
 			pagesize = rowsnum / 12;
 		}else pagesize = rowsnum / 12 + 1;
@@ -386,12 +527,65 @@ public class StudentAction extends SuperAction{
 		beforepage = beforepage > 0? beforepage : 1;
 		afterpage = afterpage <= pagesize? afterpage : pagesize; 
 		
+		String parameterurl = "time=" + time + "&type=" + type + "&cname=" + cname + "&job=" + job + "&comment=" + comment;
+		request.setAttribute("methodurl", "queryByJob");
+		request.setAttribute("parameterurl", parameterurl);
 		request.setAttribute("pagesize", pagesize);
 		request.setAttribute("pagenum", pagenum);
 		request.setAttribute("beforepage", beforepage);
 		request.setAttribute("afterpage", afterpage);
 		
 		return "query_success";
+	}
+	
+	public void exportSchool2Excel(List<Student_school> list, String filepath, String filename){
+		// TODO Auto-generated method stub
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet("学生活动表");
+		HSSFRow row = sheet.createRow(0);
+		HSSFCellStyle style = wb.createCellStyle();
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		
+		HSSFCell cell = row.createCell(0);
+		cell.setCellValue("学号");
+		cell.setCellStyle(style);
+		cell = row.createCell(1);
+		cell.setCellValue("姓名");
+		cell.setCellStyle(style);
+		cell = row.createCell(2);
+		cell.setCellValue("活动");
+		cell.setCellStyle(style);
+		cell = row.createCell(3);
+		cell.setCellValue("荣誉");
+		cell.setCellStyle(style);
+		cell = row.createCell(4);
+		cell.setCellValue("起始");
+		cell.setCellStyle(style);
+		cell = row.createCell(5);
+		cell.setCellValue("结束");
+		cell.setCellStyle(style);
+		cell = row.createCell(6);
+		
+		for(int i = 1; i <= list.size(); i++){
+			row = sheet.createRow(i);
+			Student_school school = list.get(i-1);
+			row.createCell(0).setCellValue(school.getSid());
+			row.createCell(1).setCellValue(school.getSname());
+			row.createCell(2).setCellValue(school.getActivity());
+			row.createCell(3).setCellValue(school.getHonor());
+			row.createCell(4).setCellValue(school.getStartyear());
+			row.createCell(5).setCellValue(school.getEndyear());
+		}
+		
+		try{
+			ByteArrayOutputStream wbout = new ByteArrayOutputStream();
+			wb.write(wbout);
+			inputStream = new ByteArrayInputStream(wbout.toByteArray());
+			wb.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			inputStream = new ByteArrayInputStream("输出错误".getBytes());
+		}
 	}
 	
 	public void exportStu2Excel(List<Student_info> list, String filepath, String filename){
@@ -445,6 +639,59 @@ public class StudentAction extends SuperAction{
 			wb.write(out);
 			out.close();*/
 			//wb.write(response.getOutputStream());
+			ByteArrayOutputStream wbout = new ByteArrayOutputStream();
+			wb.write(wbout);
+			inputStream = new ByteArrayInputStream(wbout.toByteArray());
+			wb.close();
+		}catch(Exception e){
+			e.printStackTrace();
+			inputStream = new ByteArrayInputStream("输出错误".getBytes());
+		}
+	}
+	
+	public void exportJob2Excel(List<Student_job> list, String filepath, String filename){
+		// TODO Auto-generated method stub
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sheet = wb.createSheet("职场生涯记录");
+		HSSFRow row = sheet.createRow(0);
+		HSSFCellStyle style = wb.createCellStyle();
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		
+		HSSFCell cell = row.createCell(0);
+		cell.setCellValue("学号");
+		cell.setCellStyle(style);
+		cell = row.createCell(1);
+		cell.setCellValue("姓名");
+		cell.setCellStyle(style);
+		cell = row.createCell(2);
+		cell.setCellValue("时间");
+		cell.setCellStyle(style);
+		cell = row.createCell(3);
+		cell.setCellValue("状态");
+		cell.setCellStyle(style);
+		cell = row.createCell(4);
+		cell.setCellValue("单位");
+		cell.setCellStyle(style);
+		cell = row.createCell(5);
+		cell.setCellValue("岗位");
+		cell.setCellStyle(style);
+		cell = row.createCell(6);
+		cell.setCellValue("备注");
+		cell.setCellStyle(style);
+		
+		for(int i = 1; i <= list.size(); i++){
+			row = sheet.createRow(i);
+			Student_job job = list.get(i-1);
+			row.createCell(0).setCellValue(job.getSid());
+			row.createCell(1).setCellValue(job.getSname());
+			row.createCell(2).setCellValue(job.getTime());
+			row.createCell(3).setCellValue(job.getType());
+			row.createCell(4).setCellValue(job.getCname());
+			row.createCell(5).setCellValue(job.getJob());
+			row.createCell(6).setCellValue(job.getComment());
+		}
+		
+		try{
 			ByteArrayOutputStream wbout = new ByteArrayOutputStream();
 			wb.write(wbout);
 			inputStream = new ByteArrayInputStream(wbout.toByteArray());

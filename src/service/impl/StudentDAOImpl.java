@@ -193,14 +193,14 @@ public class StudentDAOImpl implements StudentDAO{
 		int pagesize = 10;
 		try {
 			Criteria criteria = session.createCriteria(Student_info.class);
-			if(sid != null && !"".equals(sid)) criteria.add(Restrictions.eq("sid", sid));
-			if(sname != null && !"".equals(sname)) criteria.add(Restrictions.eq("sname", sname));
-			if(gender != null && !"".equals(gender)) criteria.add(Restrictions.eq("gender", gender));
-			if(political != null && !"".equals(political)) criteria.add(Restrictions.eq("political", political));
-			if(sprov != null && !"".equals(sprov)) criteria.add(Restrictions.eq("sprov", sprov));
-			if(scity != null && !"".equals(scity)) criteria.add(Restrictions.eq("scity", scity));
-			if(tel != null && !"".equals(tel)) criteria.add(Restrictions.eq("tel", tel));
-			if(sqq != null && !"".equals(sqq)) criteria.add(Restrictions.eq("sqq", sqq));
+			if(sid != null && !"".equals(sid)) criteria.add(Restrictions.like("sid", "%" + sid + "%"));
+			if(sname != null && !"".equals(sname)) criteria.add(Restrictions.like("sname", "%" + sname + "%"));
+			if(gender != null && !"".equals(gender)) criteria.add(Restrictions.like("gender", "%" + gender + "%"));
+			if(political != null && !"".equals(political)) criteria.add(Restrictions.like("political", "%" + political + "%"));
+			if(sprov != null && !"".equals(sprov)) criteria.add(Restrictions.like("sprov", "%" + sprov + "%"));
+			if(scity != null && !"".equals(scity)) criteria.add(Restrictions.like("scity", "%" + scity + "%"));
+			if(tel != null && !"".equals(tel)) criteria.add(Restrictions.like("tel", "%" + tel + "%"));
+			if(sqq != null && !"".equals(sqq)) criteria.add(Restrictions.like("sqq", "%" + sqq + "%"));
 			//不下载
 			if(!flag){
 				criteria.setFirstResult((page - 1) * pagesize);
@@ -230,11 +230,11 @@ public class StudentDAOImpl implements StudentDAO{
 		try {
 			List<Student_info> list = null;
 			Criteria criteria = session.createCriteria(Student_info.class,"stu");
-			DetachedCriteria detachcriteria = DetachedCriteria.forClass(Student_school.class, "school");
-			if(activity != null && !"".equals(activity)) detachcriteria.add(Restrictions.eq("activity", activity));
-			if(honor != null && !"".equals(honor)) detachcriteria.add(Restrictions.eq("honor", honor));
-			if(startyear != null && !"".equals(startyear)) detachcriteria.add(Restrictions.eq("startyear", startyear));
-			if(endyear != null && !"".equals(endyear)) detachcriteria.add(Restrictions.eq("endyear", endyear));
+			DetachedCriteria detachcriteria = DetachedCriteria.forClass(Student_school.class, "%" + "school" + "%");
+			if(activity != null && !"".equals(activity)) detachcriteria.add(Restrictions.like("activity", "%" + activity + "%"));
+			if(honor != null && !"".equals(honor)) detachcriteria.add(Restrictions.like("honor", "%" + honor + "%"));
+			if(startyear != null && !"".equals(startyear)) detachcriteria.add(Restrictions.like("startyear", "%" + startyear + "%"));
+			if(endyear != null && !"".equals(endyear)) detachcriteria.add(Restrictions.like("endyear", "%" + endyear + "%"));
 			detachcriteria.add(Property.forName("stu.sid").eqProperty("school.sid"));
 			criteria.add(Subqueries.exists(detachcriteria.setProjection(Projections.property("school.sid"))));
 			//不下载
@@ -266,11 +266,11 @@ public class StudentDAOImpl implements StudentDAO{
 			List<Student_info> list = null;
 			Criteria criteria = session.createCriteria(Student_info.class,"stu");
 			DetachedCriteria detachcriteria = DetachedCriteria.forClass(Student_job.class, "job");
-			if(time != null && !"".equals(time)) detachcriteria.add(Restrictions.eq("time", time));
-			if(type != null && !"".equals(type)) detachcriteria.add(Restrictions.eq("type", type));
-			if(cname != null && !"".equals(cname)) detachcriteria.add(Restrictions.eq("cname", cname));
-			if(job != null && !"".equals(job)) detachcriteria.add(Restrictions.eq("job", job));
-			if(comment != null && !"".equals(comment)) detachcriteria.add(Restrictions.eq("comment", comment));
+			if(time != null && !"".equals(time)) detachcriteria.add(Restrictions.eq("time", "%" + time + "%"));
+			if(type != null && !"".equals(type)) detachcriteria.add(Restrictions.eq("type", "%" + type + "%"));
+			if(cname != null && !"".equals(cname)) detachcriteria.add(Restrictions.eq("cname", "%" + cname + "%"));
+			if(job != null && !"".equals(job)) detachcriteria.add(Restrictions.eq("job", "%" + job + "%"));
+			if(comment != null && !"".equals(comment)) detachcriteria.add(Restrictions.eq("comment", "%" + comment + "%"));
 			detachcriteria.add(Property.forName("stu.sid").eqProperty("job.sid"));
 			criteria.add(Subqueries.exists(detachcriteria.setProjection(Projections.property("job.sid"))));
 			//不下载
@@ -286,6 +286,96 @@ public class StudentDAOImpl implements StudentDAO{
 			e.printStackTrace();
 			tx.commit();
 			return new ArrayList<Student_info>();
+		}finally{
+			if(tx != null) tx = null;
+		}
+	}
+
+	@Override
+	public int queryFilter(String sid, String sname, String gender, String political, String sprov, String scity,
+			String tel, String sqq) {
+		// TODO Auto-generated method stub
+		Transaction tx = null;
+		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
+		tx = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(Student_info.class);
+			if(sid != null && !"".equals(sid)) criteria.add(Restrictions.like("sid", "%" + sid + "%"));
+			if(sname != null && !"".equals(sname)) criteria.add(Restrictions.like("sname", "%" + sname + "%"));
+			if(gender != null && !"".equals(gender)) criteria.add(Restrictions.like("gender", "%" + gender + "%"));
+			if(political != null && !"".equals(political)) criteria.add(Restrictions.like("political", "%" + political + "%"));
+			if(sprov != null && !"".equals(sprov)) criteria.add(Restrictions.like("sprov", "%" + sprov + "%"));
+			if(scity != null && !"".equals(scity)) criteria.add(Restrictions.like("scity", "%" + scity + "%"));
+			if(tel != null && !"".equals(tel)) criteria.add(Restrictions.like("tel", "%" + tel + "%"));
+			if(sqq != null && !"".equals(sqq)) criteria.add(Restrictions.like("sqq", "%" + sqq + "%"));
+			
+			int pagesize = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+			tx.commit();
+			return pagesize;		
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.commit();
+			return 0;
+		}finally{
+			if(tx != null) tx = null;
+		}
+	}
+
+	@Override
+	public int queryFilterSchool(String activity, String honor, String startyear, String endyear) {
+		// TODO Auto-generated method stub
+		Transaction tx = null;
+		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
+		tx = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(Student_info.class,"stu");
+			DetachedCriteria detachcriteria = DetachedCriteria.forClass(Student_school.class, "school");
+			if(activity != null && !"".equals(activity)) detachcriteria.add(Restrictions.eq("activity", activity));
+			if(honor != null && !"".equals(honor)) detachcriteria.add(Restrictions.eq("honor", honor));
+			if(startyear != null && !"".equals(startyear)) detachcriteria.add(Restrictions.eq("startyear", startyear));
+			if(endyear != null && !"".equals(endyear)) detachcriteria.add(Restrictions.eq("endyear", endyear));
+			detachcriteria.add(Property.forName("stu.sid").eqProperty("school.sid"));
+			criteria.add(Subqueries.exists(detachcriteria.setProjection(Projections.property("school.sid"))));
+			
+			int pagesize = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+			tx.commit();
+			return pagesize;		
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.commit();
+			return 0;
+		}finally{
+			if(tx != null) tx = null;
+		}
+	}
+
+	@Override
+	public int queryFilterJob(String time, String type, String cname, String job, String comment) {
+		// TODO Auto-generated method stub
+		Transaction tx = null;
+		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
+		tx = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(Student_info.class,"stu");
+			DetachedCriteria detachcriteria = DetachedCriteria.forClass(Student_job.class, "job");
+			if(time != null && !"".equals(time)) detachcriteria.add(Restrictions.eq("time", time));
+			if(type != null && !"".equals(type)) detachcriteria.add(Restrictions.eq("type", type));
+			if(cname != null && !"".equals(cname)) detachcriteria.add(Restrictions.eq("cname", cname));
+			if(job != null && !"".equals(job)) detachcriteria.add(Restrictions.eq("job", job));
+			if(comment != null && !"".equals(comment)) detachcriteria.add(Restrictions.eq("comment", comment));
+			detachcriteria.add(Property.forName("stu.sid").eqProperty("job.sid"));
+			criteria.add(Subqueries.exists(detachcriteria.setProjection(Projections.property("job.sid"))));
+			
+			int pagesize = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+			tx.commit();
+			return pagesize;		
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.commit();
+			return 0;
 		}finally{
 			if(tx != null) tx = null;
 		}

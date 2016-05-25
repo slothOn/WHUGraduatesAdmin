@@ -153,14 +153,22 @@ String methodurl = (String)request.getAttribute("methodurl");
             <li>&nbsp;&nbsp;</li>
 	        <li>转至:</li>
 	        <li>
-	            <form action="students/Student_query.action">
-	                <span  style="margin: 5px;padding: 10px;"><input id="page" type="text" name="page" style="background: #e1e1e1; width:50px; height:20px"></span>页
-	                <span  style="padding: 10px; margin: 5px"><input type="submit" value="跳转" font-size="20px"></span>
+	            <form action="students/Student_<%=methodurl%>.action?<%=parameterurl%>" id="pageform">
+	                <span  style="margin: 5px;padding: 10px;"><input id="page" type="text" name="page" id="page" style="background: #e1e1e1; width:50px; height:20px"/></span>页
+	                <span  style="padding: 10px; margin: 5px"><input type="button" value="跳转" font-size="20px" onclick="postparamform();"/></span>
 	            </form>
 	        </li>
-	        </ul>
-        
+	     </ul>
    </div>
 </div>
+<script type="application/javascript">
+function postparamform(){
+    var pageform = document.getElementById("pageform");
+    var pageval = document.getElementById("page").value;
+    var formurl = pageform.action + "&page=" + pageval;
+    window.location = formurl;
+    return false;
+}
+</script>
 </body>
 </html>

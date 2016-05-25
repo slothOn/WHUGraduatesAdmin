@@ -55,7 +55,15 @@
 			<result name="job_delete_success" type="chain">Student_jobquery</result>
 			<result name="export_success" type="stream">
 				<param name="inputName">inputStream</param>
-				<param name="contentDisposition">filename="学生表.xls"</param>
+				<param name="contentDisposition">filename="student_table.xls"</param>
+			</result>
+			<result name="export_school_success" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">filename="studentschool_table.xls"</param>
+			</result>
+			<result name="export_job_success" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">filename="studentjob_table.xls"</param>
 			</result>
 		</action>
 	</package>
@@ -68,6 +76,10 @@
 			<result name="update_success">/coms/Coms_modify_success.jsp</result>
 			<result name="add_error">/coms/Coms_add.jsp</result>
 			<result name="update_error">/coms/Coms_modify.jsp</result>
+			<result name="export_success" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">filename="cominfo_table.xls"</param>
+			</result>
 		</action>
 	</package>
 </struts>

@@ -10,4 +10,6 @@ public interface ComDAO {
 	public boolean addCom(Com_info s);
 	public boolean updateCom(Com_info s);
 	public boolean deleteCom(String sid);
+	public List<Com_info> queryFilter(String cname, String cfield, String ctype, String cprov, String ccity, String startdate, String endate, int page, boolean flag);
+	public int queryFilter(String cname, String cfield, String ctype, String cprov, String ccity, String startdate, String enddate);
 }
