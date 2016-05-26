@@ -126,7 +126,7 @@ public class ComDAOImpl implements ComDAO{
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
-		int pagesize = 10;
+		int pagesize = 12;
 		try {
 			Criteria criteria = session.createCriteria(Com_info.class);
 			if(cname != null && !"".equals(cname)) criteria.add(Restrictions.like("cname", "%" + cname + "%"));

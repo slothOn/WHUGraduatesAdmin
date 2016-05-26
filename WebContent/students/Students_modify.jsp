@@ -182,7 +182,7 @@ select
 	<col width="10%">
 	<col width="10%">
 	<col width="20%">
-	<tr class="title">
+	<tr class="title record">
 		<td>活动</td>
 		<td>荣誉</td>
 		<td>起始</td>
@@ -204,8 +204,8 @@ select
 	</s:iterator>
 		<form class="addschool">
 	        <tr class="list">
-	            <input type="text" name="sid" value='<s:property value="#request.modify_students.sid"/>' hidden>
-	            <input type="text" name="sname" value='<s:property value="#request.modify_students.sname"/>' hidden>
+	            <input type="text" name="sid" class="addschoolsid" hidden>
+	            <input type="text" name="sname" class="addschoolsname" hidden>
 	            <td><input type="text" name="activity" class="input_v"></td>
 	            <td><input type="text" name="honor" class="input_v"></td>
 	            <td><input type="text" name="startyear" class="input_v"></td>
@@ -225,7 +225,7 @@ select
 	<col width="20%">
 	<col width="10%">
 	<col width="20%">
-	<tr class="title">
+	<tr class="title jobrecord">
 		<td>时间</td>
 		<td>状态</td>
 		<td>单位</td>
@@ -249,8 +249,8 @@ select
 	</s:iterator>
 		<form class="addjob">
 	        <tr class="list">
-	            <input type="text" name="sid" value='<s:property value="#request.modify_students.sid"/>' hidden>
-	            <input type="text" name="sname" value='<s:property value="#request.modify_students.sname"/>' hidden>
+	            <input type="text" name="sid" hidden>
+	            <input type="text" name="sname" hidden>
 	            <td><input type="text" name="time" class="input_v"></td>
 	            <td><input type="text" name="type" class="input_v"></td>
 	            <td><input type="text" name="cname" class="input_v"></td>

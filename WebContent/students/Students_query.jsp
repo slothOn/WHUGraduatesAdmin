@@ -89,7 +89,7 @@ form{
 <div id="navi">
 	<div id='naviDiv'>
 		<span><img src="../images/arror.gif" width="7" height="11" border="0" alt=""></span>&nbsp;学生管理<span>&nbsp;
-		<span><img src="../images/arror.gif" width="7" height="11" border="0" alt=""></span>&nbsp;<a href="<%=path%>/students/Students_query.action">学生列表</a><span>&nbsp;
+		<span><img src="../images/arror.gif" width="7" height="11" border="0" alt=""></span>&nbsp;<a href="<%=path%>/students/Students_query.action"  onclick="alert('请在详情页为指定学生添加');">学生列表</a><span>&nbsp;
 	</div>
 </div>
 <div id="tips">

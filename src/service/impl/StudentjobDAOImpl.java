@@ -119,7 +119,7 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
-		int pagesize = 10;
+		int pagesize = 12;
 		try {
 			Criteria criteria = session.createCriteria(Student_job.class);
 			if(time != null && !"".equals(time)) criteria.add(Restrictions.like("time", "%" + time + "%"));
@@ -151,7 +151,6 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
-		int pagesize = 10;
 		try {
 			Criteria criteria = session.createCriteria(Student_job.class);
 			if(time != null && !"".equals(time)) criteria.add(Restrictions.like("time", "%" + time + "%"));

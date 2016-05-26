@@ -69,3 +69,54 @@ function ajaxDelJob(id){
 		}
 	},'html');
 }
+
+function initialAddSchool(){
+    var studentid = $("#studentid").val();
+    if(!studentid) {
+        alert("请先输入学号");
+        return false;
+    }
+    var studentname = $("#studentname").val();
+    if(!studentname){
+        alert("请先输入学生姓名");
+        return false;
+    }
+	var schidclass = $(".schidclass:last");
+    schidclass.val(studentid);
+    var schnameclass = $(".schnameclass:last");
+    schnameclass.val(studentname);
+    ajaxAddSchool();
+}
+
+function initialAddJob(){
+	var studentid = $("#studentid").val();
+    if(!studentid) {
+        alert("请先输入学号");
+        return false;
+    }
+    var studentname = $("#studentname").val();
+    if(!studentname){
+        alert("请先输入学生姓名");
+        return false;
+    }
+    var jobidclass = $(".jobidclass:last");
+    jobidclass.val(studentid);
+    var jobnameclass = $(".jobnameclass:last");
+    jobnameclass.val(studentname);
+    ajaxAddJob();
+}
+
+function addStudentValidation(){
+    var studentid = $("#studentid").val();
+    if(!studentid) {
+        alert("请先输入学号");
+        return false;
+    }
+    var studentname = $("#studentname").val();
+    if(!studentname){
+        alert("请先输入学生姓名");
+        return false;
+    }
+    var addform = document.getElementsByName("addForm")[0];
+    addform.submit();
+}

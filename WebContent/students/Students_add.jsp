@@ -84,6 +84,7 @@ select
 <script type="text/javascript" src="../js/Calendar3.js"></script>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/provinceandcity.js"></script>
+<script type="text/javascript" src="../js/addschool.js"></script>
 <div id="navi">
 	<div id='naviDiv'>
 		<span><img src="../images/arror.gif" width="7" height="11" border="0" alt=""></span>&nbsp;学生管理<span>&nbsp;
@@ -91,24 +92,22 @@ select
 	</div>
 </div>
 <div id="tips">
+	<p>填写完后请记得点击“提交”哦~</p>
 </div>
 <div id="mainContainer">
-<!-- 从session中获取学生集合 -->
 <strong>添加学生资料</strong>
+<input class="button" type="button" value="提交" onclick="addStudentValidation();" style="padding:3px;margin:5px;height:auto;">
 <br>
 <br>
-<div>
-	<s:fielderror/>
-</div>
 <form name="addForm" action="<%=path%>/students/Student_add.action" method="post">
 <table width="400" style="padding: 10px">
   <tr>
     <td width="30%">学号：</td>
-    <td><input type="text" name="sid" /></td>
+    <td><input type="text" name="sid" id="studentid"/></td>
   </tr>
   <tr>
     <td width="30%">姓名：</td>
-    <td><input type="text" name="sname" /></td>
+    <td><input type="text" name="sname" id="studentname"/></td>
   </tr>
   <tr>
     <td>性别：</td>
@@ -124,12 +123,6 @@ select
   		</select>
   	</td>
   </tr>
-  <!-- <tr>
-    <td>出生日期：</td>
-    <td><input name="birthday" type="text" id="control_date" size="20"
-      maxlength="10" onclick="new Calendar().show(this);" readonly="readonly" />
-    </td>
-  </tr>-->
   <tr>
     <!--<input type="text" name="address" /> -->
     <td>省  份：</td>
@@ -155,9 +148,9 @@ select
   	<td>qq:</td>
   	<td><input type="text" name="sqq"></td>
   </tr>
-  <tr>
+  <!--<tr>
     <td colspan="2" align="center"><input class="button" type="submit" value="添加"></td>
-  </tr>
+  </tr>-->
 </table>
 </form>
 
@@ -168,7 +161,7 @@ select
 	<col width="30%">
 	<col width="8%">
 	<col width="8%">
-	<tr class="title">
+	<tr class="title record">
 		<td>活动</td>
 		<td>荣誉</td>
 		<td>起始</td>
@@ -176,25 +169,53 @@ select
 		<td>操作</td>
 	</tr>
 	
-	<!-- 遍历学生列表 -->
-	<s:iterator value="#request.records_list" var="record">
-		<tr class="list">
-			<td><s:property value="#record.sid"/></td>
-			<td><s:property value="#record.sname"/></td>
-			<td><s:property value="#record.activity"/></td>
-			<td><s:property value="#record.honor"/></td>
-			<td><s:property value="#record.startyear"/></td>
-			<td><s:property value="#record.endyear"/></td>
-			<td>
-			<a href="<%=path%>/students/Student_schoolmodify.action?sid=<s:property value="#record.sid"/>">详情</a>
-			<a href="<%=path%>/students/Student_schoolmodify.action?sid=<s:property value="#record.sid"/>">修改</a>
-			<a href="<%=path%>/students/Student_schooldelete.action?ssid=<s:property value="#record.ssid"/>" onclick="javascript:return confirm('真的要删除吗？');">删除</a>
-			</td>
-		</tr>
-	</s:iterator>
-	
+	<form class="addschool">
+        <tr class="list">
+            <input type="text" name="sid" hidden class="schidclass">
+            <input type="text" name="sname" hidden class="schnameclass">
+            <td><input type="text" name="activity" class="input_v"></td>
+            <td><input type="text" name="honor" class="input_v"></td>
+            <td><input type="text" name="startyear" class="input_v"></td>
+            <td><input type="text" name="endyear" class="input_v"></td>
+            <td>
+                <a onclick="initialAddSchool()"/>添加</a>
+            </td> 
+        </tr>
+   	</form>
 </table>
 
+<h3>学生职业生涯</h3>
+<table class="default" width="80%" style="padding: 10px; margin: 10px">
+	<col width="10%">
+	<col width="20%">
+	<col width="25%">
+	<col width="20%">
+	<col width="10%">
+	<col width="20%">
+	<tr class="title jobrecord">
+		<td>时间</td>
+		<td>状态</td>
+		<td>单位</td>
+		<td>岗位</td>
+		<td>备注</td>
+		<td>操作</td>
+	</tr>
+	
+	<form class="addjob">
+        <tr class="list">
+            <input type="text" name="sid" hidden class="jobidclass">
+            <input type="text" name="sname" hidden class="jobnameclass">
+            <td><input type="text" name="time" class="input_v"></td>
+            <td><input type="text" name="type" class="input_v"></td>
+            <td><input type="text" name="cname" class="input_v"></td>
+            <td><input type="text" name="job" class="input_v"></td>
+            <td><input type="text" name="comment" class="input_v"></td>
+            <td>
+                <a onclick="initialAddJob()"/>添加</a>
+            </td>
+        </tr>
+   	</form>
+</table>
 </div>
 </body>
 </html>

@@ -136,7 +136,7 @@ public class StudentDAOImpl implements StudentDAO{
 	@Override
 	public List<Student_info> queryRecordsByPage(int page, boolean flag) {
 		// TODO Auto-generated method stub
-		int pagesize = 10;
+		int pagesize = 12;
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
@@ -190,7 +190,7 @@ public class StudentDAOImpl implements StudentDAO{
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
-		int pagesize = 10;
+		int pagesize = 12;
 		try {
 			Criteria criteria = session.createCriteria(Student_info.class);
 			if(sid != null && !"".equals(sid)) criteria.add(Restrictions.like("sid", "%" + sid + "%"));
@@ -226,7 +226,7 @@ public class StudentDAOImpl implements StudentDAO{
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
-		int pagesize = 10;
+		int pagesize = 12;
 		try {
 			List<Student_info> list = null;
 			Criteria criteria = session.createCriteria(Student_info.class,"stu");
@@ -261,7 +261,7 @@ public class StudentDAOImpl implements StudentDAO{
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
-		int pagesize = 10;
+		int pagesize = 12;
 		try {
 			List<Student_info> list = null;
 			Criteria criteria = session.createCriteria(Student_info.class,"stu");

@@ -120,7 +120,7 @@ public class StudentschoolDAOImpl implements StudentschoolDAO{
 		Transaction tx = null;
 		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
 		tx = session.beginTransaction();
-		int pagesize = 10;
+		int pagesize = 12;
 		try {
 			Criteria criteria = session.createCriteria(Student_school.class);
 			if(activity != null && !"".equals(activity)) criteria.add(Restrictions.like("activity", "%" + activity + "%"));
