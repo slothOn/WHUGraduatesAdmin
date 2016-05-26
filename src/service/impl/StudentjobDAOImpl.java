@@ -33,10 +33,11 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			tx.commit();
+			tx.rollback();
 			return null;
 		}finally {
 			if(tx != null) tx = null;
+			
 		}
 	}
 
@@ -57,10 +58,11 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			tx.commit();
+			tx.rollback();
 			return null;
 		}finally{
 			if(tx != null) tx = null;
+			
 		}
 	}
 
@@ -78,10 +80,11 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			tx.commit();
+			tx.rollback();
 			return 0;
 		}finally{
 			if(tx != null) tx = null;
+			
 		}
 	}
 
@@ -105,10 +108,11 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			tx.commit();
+			tx.rollback();
 			return false;
 		}finally{
 			if(tx != null) tx = null;
+			
 		}
 	}
 
@@ -138,10 +142,11 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			tx.commit();
+			tx.rollback();
 			return new ArrayList<Student_job>();
 		}finally{
 			if(tx != null) tx = null;
+			
 		}
 	}
 
@@ -165,10 +170,11 @@ public class StudentjobDAOImpl implements StudentjobDAO{
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			tx.commit();
+			tx.rollback();
 			return 0;
 		}finally{
 			if(tx != null) tx = null;
+			
 		}
 	}
 

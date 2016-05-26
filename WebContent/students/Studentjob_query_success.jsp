@@ -142,7 +142,7 @@ String methodurl = (String)request.getAttribute("methodurl");
             <li><a href='students/Student_<%=methodurl%>.action?page=<s:property value="#request.beforepage"/>&<%=parameterurl%>'>&lt;</a></li>
             <li><a href="#">当前第<s:property value="#request.pagenum"/>页</a></li>
             <li><a href='students/Student_<%=methodurl%>.action?page=<s:property value="#request.afterpage"/>&<%=parameterurl%>'>&gt;</a></li>
-            <li><a href='students/Student_<%=methodurl%>.action?page=<s:property value="#request.pagenum"/>&<%=parameterurl%>'>末页</a></li>
+            <li><a href='students/Student_<%=methodurl%>.action?page=<s:property value="#request.pagesize"/>&<%=parameterurl%>'>末页</a></li>
             <li>共<s:property value="#request.pagesize"/>页</li>
             <li>&nbsp;&nbsp;</li>
 	        <li>转至:</li>

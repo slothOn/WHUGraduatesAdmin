@@ -30,7 +30,7 @@ public class UserDAOImpl implements UserDAO{
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			tx.commit();
+			tx.rollback();
 			return false;
 		}finally{
 			if(tx != null) tx = null;

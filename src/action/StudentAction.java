@@ -60,7 +60,7 @@ public class StudentAction extends SuperAction{
 		int beforepage = pagenum - 1;
 		int afterpage = pagenum + 1;
 		beforepage = beforepage > 0? beforepage : 1;
-		afterpage = afterpage <= pagesize? afterpage : pagesize; 
+		afterpage = (afterpage <= pagesize? afterpage : pagesize); 
 		
 		request.setAttribute("pagesize", pagesize);
 		request.setAttribute("pagenum", pagenum);

@@ -14,7 +14,7 @@ function ajaxAddSchool(){
                  "<a onclick=\"javascript:if(confirm('真的要删除吗？')) ajaxDelSchool(" + data + ");\">删除</a>"
                  +"</td></tr>";
             $(".record:last").after($html);
-            alert("插入成功");
+            //alert("插入成功");
         }
         //插入失败,弹出提示
         else{
@@ -29,7 +29,7 @@ function ajaxAddJob(){
     $.get('Student_jobadd.action',$postdata,function(data){
         //插入成功,增加下一行
         if(data != '0'){
-            var input_vs = document.getElementsByClassName("input_v");
+            var input_vs = document.getElementsByClassName("input_v2");
             for(var i = 0; i < input_vs.length; i++){
                 input_vs[i].value='';
             }
@@ -39,7 +39,7 @@ function ajaxAddJob(){
                  "<a onclick=\"javascript:if(confirm('真的要删除吗？')) ajaxDelJob(" + data + ");\">删除</a>"
                  + "</td></tr>";
             $(".jobrecord:last").after($html);
-            alert("插入成功");
+            //alert("插入成功");
         }
         //插入失败,弹出提示
         else{
@@ -117,6 +117,7 @@ function addStudentValidation(){
         alert("请先输入学生姓名");
         return false;
     }
+    window.onbeforeunload=function(){};
     var addform = document.getElementsByName("addForm")[0];
     addform.submit();
 }

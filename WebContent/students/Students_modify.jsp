@@ -251,11 +251,25 @@ select
 	        <tr class="list">
 	            <input type="text" name="sid" hidden>
 	            <input type="text" name="sname" hidden>
-	            <td><input type="text" name="time" class="input_v"></td>
-	            <td><input type="text" name="type" class="input_v"></td>
-	            <td><input type="text" name="cname" class="input_v"></td>
-	            <td><input type="text" name="job" class="input_v"></td>
-	            <td><input type="text" name="comment" class="input_v"></td>
+	            <td><input type="text" name="time" class="input_v2"></td>
+	            <td>
+	            <!-- <input type="text" name="type" class="input_v"> -->
+		           <select name="type" class="input_v2">
+		            	<option value=""></option>
+		            	<option value="境内升学">境内升学</option>
+		            	<option value="境外升学">境外升学</option>
+		            	<option value="协议就业">协议就业</option>
+		            	<option value="公务员">公务员</option>
+		            	<option value="选调生">选调生</option>
+		            	<option value="创业">创业</option>
+		            	<option value="待就业">待就业</option>
+		            	<option value="其他">其他</option>
+	           	 </select>
+	            </td>
+	            
+	            <td><input type="text" name="cname" class="input_v2"></td>
+	            <td><input type="text" name="job" class="input_v2"></td>
+	            <td><input type="text" name="comment" class="input_v2"></td>
 	            <td>
 	                <a onclick="ajaxAddJob()"/>添加</a>
 	            </td>
