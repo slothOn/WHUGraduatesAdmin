@@ -202,7 +202,19 @@ form{
 	  </tr>
 	  <tr>
 	    <td width="30%">学生状态：</td>
-	    <td><input type="text" name="type" /></td>
+	    <td>
+	    <select name="type">
+            	<option value=""></option>
+            	<option value="境内升学">境内升学</option>
+            	<option value="境外升学">境外升学</option>
+            	<option value="协议就业">协议就业</option>
+            	<option value="公务员">公务员</option>
+            	<option value="选调生">选调生</option>
+            	<option value="创业">创业</option>
+            	<option value="待就业">待就业</option>
+            	<option value="其他">其他</option>
+            </select>
+	    </td>
 	  </tr>
 	   <tr>
 	    <td width="30%">单位名称：</td>

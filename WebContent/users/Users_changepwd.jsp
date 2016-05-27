@@ -25,9 +25,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <label>请输入原密码:</label>
     <input type="text" name="prevpwd"/><br>
     <label>请输入新密码:</label>
-    <input type="password" name="newpwd1"><br>
+    <input type="password" name="newpwd1" placeholder="密码长度不少于3位"><br>
     <label>再输入新密码:</label>
-    <input type="password" name="newpwd2"><br>
+    <input type="password" name="newpwd2" placeholder="密码长度不少于3位"><br>
     <input type="button" value="提交" onclick="checkpassword();">
     <div>
 	  <s:fielderror/>
@@ -40,6 +40,10 @@ function checkpassword(){
     if(newpwd1.value != newpwd2.value){
         alert("两次密码输入不一致");
         return false;
+    }
+    if(newpwd1.length < 3){
+    	alert("密码长度小于3位");
+    	return false;
     }
     var form = document.getElementsByTagName("form")[0];
     form.submit();

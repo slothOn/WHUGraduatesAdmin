@@ -87,7 +87,7 @@ String methodurl = (String)request.getAttribute("methodurl");
 </div>
 <div id="tips">
 	<div id="buttonGroup">
-		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'" onclick="alert('请在学生列表页为指定学生添加');">
+		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'"  onclick="alert('请在学生列表页为指定学生添加');">
 			添加记录
 		</div>
 		<div class="button" onmouseout="this.style.backgroundColor='';this.style.fontWeight='normal'" onmouseover="this.style.backgroundColor='#77D1F6';this.style.fontWeight='bold'">

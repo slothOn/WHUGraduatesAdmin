@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 导航空白 -->
 </div>
 <div id="mainContainer">
-   <strong>修改成功，<a href="<%=path%>/students/Student_query.action">返回单位列表</a></strong>
+   <strong>修改成功，<a href="<%=path%>/students/Student_query.action">返回学生列表</a></strong>
    <!--数据表格空白 -->
 </div>
 </body>
