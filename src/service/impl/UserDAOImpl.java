@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import db.MyHibernateSessionFactory;
 import entity.User;
 import service.UserDAO;
+import util.MD5Util;
 
 public class UserDAOImpl implements UserDAO{
 
@@ -22,7 +23,7 @@ public class UserDAOImpl implements UserDAO{
 			String hql = "from User where username=? and password=?";
 			Query query = session.createQuery(hql);
 			query.setParameter(0, u.getUsername());
-			query.setParameter(1, u.getPassword());
+			query.setParameter(1, MD5Util.MD5Encode(u.getPassword()));
 			List list = query.list();
 			tx.commit();
 			if(list != null && list.size() > 0) return true;
