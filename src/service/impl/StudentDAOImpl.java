@@ -238,7 +238,7 @@ public class StudentDAOImpl implements StudentDAO{
 		try {
 			List<Student_info> list = null;
 			Criteria criteria = session.createCriteria(Student_info.class,"stu");
-			DetachedCriteria detachcriteria = DetachedCriteria.forClass(Student_school.class, "%" + "school" + "%");
+			DetachedCriteria detachcriteria = DetachedCriteria.forClass(Student_school.class, "school");
 			if(activity != null && !"".equals(activity)) detachcriteria.add(Restrictions.like("activity", "%" + activity + "%"));
 			if(honor != null && !"".equals(honor)) detachcriteria.add(Restrictions.like("honor", "%" + honor + "%"));
 			if(startyear != null && !"".equals(startyear)) detachcriteria.add(Restrictions.like("startyear", "%" + startyear + "%"));
@@ -275,11 +275,11 @@ public class StudentDAOImpl implements StudentDAO{
 			List<Student_info> list = null;
 			Criteria criteria = session.createCriteria(Student_info.class,"stu");
 			DetachedCriteria detachcriteria = DetachedCriteria.forClass(Student_job.class, "job");
-			if(time != null && !"".equals(time)) detachcriteria.add(Restrictions.eq("time", "%" + time + "%"));
-			if(type != null && !"".equals(type)) detachcriteria.add(Restrictions.eq("type", "%" + type + "%"));
-			if(cname != null && !"".equals(cname)) detachcriteria.add(Restrictions.eq("cname", "%" + cname + "%"));
-			if(job != null && !"".equals(job)) detachcriteria.add(Restrictions.eq("job", "%" + job + "%"));
-			if(comment != null && !"".equals(comment)) detachcriteria.add(Restrictions.eq("comment", "%" + comment + "%"));
+			if(time != null && !"".equals(time)) detachcriteria.add(Restrictions.like("time", "%" + time + "%"));
+			if(type != null && !"".equals(type)) detachcriteria.add(Restrictions.like("type", "%" + type + "%"));
+			if(cname != null && !"".equals(cname)) detachcriteria.add(Restrictions.like("cname", "%" + cname + "%"));
+			if(job != null && !"".equals(job)) detachcriteria.add(Restrictions.like("job", "%" + job + "%"));
+			if(comment != null && !"".equals(comment)) detachcriteria.add(Restrictions.like("comment", "%" + comment + "%"));
 			detachcriteria.add(Property.forName("stu.sid").eqProperty("job.sid"));
 			criteria.add(Subqueries.exists(detachcriteria.setProjection(Projections.property("job.sid"))));
 			//不下载
@@ -342,10 +342,10 @@ public class StudentDAOImpl implements StudentDAO{
 		try {
 			Criteria criteria = session.createCriteria(Student_info.class,"stu");
 			DetachedCriteria detachcriteria = DetachedCriteria.forClass(Student_school.class, "school");
-			if(activity != null && !"".equals(activity)) detachcriteria.add(Restrictions.eq("activity", activity));
-			if(honor != null && !"".equals(honor)) detachcriteria.add(Restrictions.eq("honor", honor));
-			if(startyear != null && !"".equals(startyear)) detachcriteria.add(Restrictions.eq("startyear", startyear));
-			if(endyear != null && !"".equals(endyear)) detachcriteria.add(Restrictions.eq("endyear", endyear));
+			if(activity != null && !"".equals(activity)) detachcriteria.add(Restrictions.like("activity", "%" + activity + "%"));
+			if(honor != null && !"".equals(honor)) detachcriteria.add(Restrictions.like("honor", "%" + honor + "%"));
+			if(startyear != null && !"".equals(startyear)) detachcriteria.add(Restrictions.like("startyear", "%" + startyear + "%"));
+			if(endyear != null && !"".equals(endyear)) detachcriteria.add(Restrictions.like("endyear", "%" + endyear + "%"));
 			detachcriteria.add(Property.forName("stu.sid").eqProperty("school.sid"));
 			criteria.add(Subqueries.exists(detachcriteria.setProjection(Projections.property("school.sid"))));
 			
@@ -372,11 +372,11 @@ public class StudentDAOImpl implements StudentDAO{
 		try {
 			Criteria criteria = session.createCriteria(Student_info.class,"stu");
 			DetachedCriteria detachcriteria = DetachedCriteria.forClass(Student_job.class, "job");
-			if(time != null && !"".equals(time)) detachcriteria.add(Restrictions.eq("time", time));
-			if(type != null && !"".equals(type)) detachcriteria.add(Restrictions.eq("type", type));
-			if(cname != null && !"".equals(cname)) detachcriteria.add(Restrictions.eq("cname", cname));
-			if(job != null && !"".equals(job)) detachcriteria.add(Restrictions.eq("job", job));
-			if(comment != null && !"".equals(comment)) detachcriteria.add(Restrictions.eq("comment", comment));
+			if(time != null && !"".equals(time)) detachcriteria.add(Restrictions.like("time", "%" + time + "%"));
+			if(type != null && !"".equals(type)) detachcriteria.add(Restrictions.like("type", "%" + type + "%"));
+			if(cname != null && !"".equals(cname)) detachcriteria.add(Restrictions.like("cname", "%" + cname + "%"));
+			if(job != null && !"".equals(job)) detachcriteria.add(Restrictions.like("job", "%" + job + "%"));
+			if(comment != null && !"".equals(comment)) detachcriteria.add(Restrictions.like("comment", "%" + comment + "%"));
 			detachcriteria.add(Property.forName("stu.sid").eqProperty("job.sid"));
 			criteria.add(Subqueries.exists(detachcriteria.setProjection(Projections.property("job.sid"))));
 			

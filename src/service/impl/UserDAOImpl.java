@@ -47,7 +47,7 @@ public class UserDAOImpl implements UserDAO{
 		try {
 			String hql = "update User user set user.password=? where username=?";
 			Query query = session.createQuery(hql);
-			query.setParameter(0, newpwd);
+			query.setParameter(0, MD5Util.MD5Encode(newpwd));
 			query.setParameter(1, username);
 			//query.setParameter(1, MD5Util.MD5Encode(u.getPassword()));
 			int result = query.executeUpdate();
