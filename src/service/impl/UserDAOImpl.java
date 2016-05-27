@@ -37,4 +37,28 @@ public class UserDAOImpl implements UserDAO{
 		}
 	}
 
+	@Override
+	public void changepwd(String username, String newpwd) {
+		// TODO Auto-generated method stub
+		Transaction tx = null;
+		Session session = MyHibernateSessionFactory.getInstance().getCurrentSession();
+		tx = session.beginTransaction();
+		try {
+			String hql = "update User user set user.password=? where username=?";
+			Query query = session.createQuery(hql);
+			query.setParameter(0, newpwd);
+			query.setParameter(1, username);
+			//query.setParameter(1, MD5Util.MD5Encode(u.getPassword()));
+			int result = query.executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			tx.commit();
+		}finally{
+			if(tx != null) tx = null;
+		}
+	}
+
+
 }

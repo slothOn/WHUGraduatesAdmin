@@ -87,7 +87,7 @@ public class StudentDAOImpl implements StudentDAO{
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			tx.rollback();
+			tx.commit();
 			return false;
 		}finally{
 			if(tx != null) tx = null;

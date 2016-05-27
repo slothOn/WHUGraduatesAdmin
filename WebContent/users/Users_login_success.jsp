@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 	<title>后台管理</title>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="../css/index.css" />
+	<link rel="stylesheet" type="text/css" href="<%=path %>/css/index.css" />
 </head>
 <body>
 <div id="wrapper">
@@ -32,7 +32,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div id="user_info">
 			<div id="welcome">欢迎${sessionScope.LoginUsername}使用本系统</div>
-			<div id="logout"><a href="<%=path%>/users/User_logout.action">安全退出</a></div>
+			<div id="logout"><a href="<%=path%>/users/User_logout.action">退出</a>&nbsp;
+			<a href="<%=path%>/users/Users_changepwd.jsp">修改密码</a></div>
 		</div>
 	</div>
 	<div id="navigator">

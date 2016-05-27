@@ -13,6 +13,16 @@
 		</action>
 	</package>
 	<package name="student" namespace="/students" extends="struts-default">
+		<global-results>
+			<!-- 定义全局exception对应page -->
+			<result name="nestedex">/errors/nestedex.jsp</result>
+			<result name="duplicatepk">/errors/duplicatepk.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<!-- student空间下全局异常 -->
+			<exception-mapping exception="org.hibernate.TransactionException" result="nestedtx"/>
+			<exception-mapping exception="org.hibernate.exception.ConstraintViolationException" result="duplicatepk"/>
+		</global-exception-mappings>
 		
 		<action name="Student_schooladd" class="action.StudentAction" method="schooladd">
 			<result type="stream">
@@ -68,6 +78,13 @@
 		</action>
 	</package>
 	<package name="com" namespace="/coms" extends="struts-default">
+		<global-results>
+			<result name="nestedex">/errors/nestedex.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<!-- student空间下全局异常 -->
+			<exception-mapping exception="org.hibernate.TransactionException" result="nestedtx"/>
+		</global-exception-mappings>
 		<action name="*_*" class="action.{1}Action" method="{2}">
 			<result name="query_success">/coms/Coms_query_success.jsp</result>
 			<result name="add_success">/coms/Coms_add_success.jsp</result>

@@ -1,7 +1,5 @@
 package action;
 
-import org.apache.struts2.interceptor.validation.SkipValidation;
-
 import com.opensymphony.xwork2.ModelDriven;
 
 import entity.User;
@@ -32,8 +30,7 @@ public class UserAction extends SuperAction implements ModelDriven<User>{
 		}
 		return user;
 	}
-	
-	@SkipValidation
+
 	public String logout(){
 		if(session.getAttribute("LoginUsername") != null){
 			session.setAttribute("", null);
@@ -41,8 +38,15 @@ public class UserAction extends SuperAction implements ModelDriven<User>{
 		return "logout_success";
 	}
 	
-	@Override
-	public void validate() {
+	public String changepwd(){
+		String newpwd2 = request.getParameter("newpwd2");
+		UserDAO udao = new UserDAOImpl();
+		String username = (String) session.getAttribute("LoginUsername");
+		udao.changepwd(username, newpwd2);
+		return "logout_success";
+	}
+	
+	public void validateLogin() {
 		// TODO Auto-generated method stub
 		System.out.println("进入校验程序");
 		if("".equals(user.getUsername().trim())){
@@ -53,4 +57,13 @@ public class UserAction extends SuperAction implements ModelDriven<User>{
 		}
 	}
 	
+	public void validateChangepwd(){
+		System.out.println("验证原密码");
+		String prevpwd = request.getParameter("prevpwd");
+		String username = (String) session.getAttribute("LoginUsername");
+		UserDAO udao = new UserDAOImpl();
+		if(!udao.userLogin(new User(0, username, prevpwd))){
+			this.addFieldError("passwordError", "原密码输入错误");
+		}
+	}
 }
