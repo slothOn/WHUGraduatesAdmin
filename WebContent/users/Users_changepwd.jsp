@@ -41,7 +41,7 @@ function checkpassword(){
         alert("两次密码输入不一致");
         return false;
     }
-    if(newpwd1.length < 3){
+    if(newpwd1.value.length < 3){
     	alert("密码长度小于3位");
     	return false;
     }
