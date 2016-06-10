@@ -103,10 +103,11 @@ String methodurl = (String)request.getAttribute("methodurl");
 <table class="default" width="100%">
 	<col width="15%">
 	<col width="10%">
-	<col width="25%">
-	<col width="25%">
 	<col width="5%">
-	<col width="5%">
+	<col width="10%">
+	<col width="15%">
+	<col width="15%">
+	<col width="15%">
 	<tr class="title">
 		<td>学号</td>
 		<td>姓名</td>
