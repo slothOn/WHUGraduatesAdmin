@@ -7,8 +7,8 @@
 		<!-- 数据库连接的配置 -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.url">jdbc:mysql://localhost:3306/graduateadmin?useUnicode=true&amp;characterEncoding=UTF-8</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password">20120607</property>
+		<property name="connection.username">用户名</property>
+		<property name="connection.password">密码</property>
 		<!-- 连接池的配置 -->
 		<property name="hibernate.c3p0.max_size">20</property>
 		<property name="hibernate.c3p0.min_size">1</property>
